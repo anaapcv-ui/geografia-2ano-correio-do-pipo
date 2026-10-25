@@ -53,7 +53,7 @@ h1,h2,h3{font-family:'Baloo 2',cursive;margin:0 0 10px;line-height:1.2;}
 .card.blue{background:var(--azul-claro);border-color:#C3D6F6;}
 .card.green{background:#E9F6EF;border-color:#BFE3CF;}
 
-.hero{background:linear-gradient(180deg,#7FB2F2 0%,#A9CDF7 60%,#F7C531 60%,#EDB61C 100%);color:#fff;border-radius:20px;padding:20px 16px 18px;margin:16px 0;border:3px solid var(--azul-esc);text-align:center;position:relative;overflow:hidden;}
+.hero{background:linear-gradient(180deg,#4F8EE3 0%,#7FB0EE 74%,#F7C531 74%,#EDB61C 100%);color:#fff;border-radius:20px;padding:20px 16px 18px;margin:16px 0;border:3px solid var(--azul-esc);text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--verm) 0 18px,#fff 18px 36px,var(--azul) 36px 54px,#fff 54px 72px);}
 .hero h1{font-size:1.95rem;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.22);margin:6px 0 2px;}
 .hero .sub{font-size:.95rem;font-weight:800;text-shadow:0 1px 0 rgba(0,0,0,.25);}
@@ -976,6 +976,11 @@ function escChk(){
   var it=G.escItem, txt=document.getElementById('wtxt').value.trim();
   if(txt.length<15){ document.getElementById('wavisos').innerHTML='<div class="warn">✏️ Escreva um pouquinho mais: uma ou duas frases contando do seu jeito.</div>'; return; }
   var copiou=ehTranscricao(txt,it.enun);
+  var reg0=S.escrita[it.id]||{};
+  if(G.tentativa===1 && reg0.tentou===txt){
+    document.getElementById('wavisos').innerHTML='<div class="warn">✏️ Você ainda não mudou nada. Troque algumas palavras e escreva do SEU jeito antes de conferir de novo.</div>';
+    document.getElementById('wtxt').focus(); return;
+  }
   G.tentativa=(G.tentativa||0)+1;
   if(copiou && G.tentativa===1){
     S.escrita[it.id]=S.escrita[it.id]||{}; S.escrita[it.id].tentou=txt; save();
