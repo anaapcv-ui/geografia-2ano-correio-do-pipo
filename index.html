@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕊️ Correio do Pipo — Geografia 2º ano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#2E6FD8;        /* azul-carteiro */
+  --azul-esc:#1F4FA3;
+  --azul-claro:#E8F0FD;
+  --amar:#F7C531;        /* amarelo-envelope */
+  --amar-esc:#C99A10;
+  --verm:#E2483D;        /* vermelho-caixa-postal */
+  --verm-esc:#AE2F26;
+  --verde:#2FA36B;       /* verde-selo */
+  --verde-esc:#1F7A4E;
+  --papel:#FFF9EE;       /* creme-carta */
+  --tinta:#2B2A3A;
+  --cinza:#7C7889;
+  --borda:#E6DCC8;
+  --erro:#E2483D;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Nunito',system-ui,sans-serif;
+  background:var(--papel);
+  background-image:repeating-linear-gradient(135deg,rgba(46,111,216,.05) 0 10px,transparent 10px 20px,rgba(226,72,61,.05) 20px 30px,transparent 30px 40px);
+  color:var(--tinta);font-size:17px;line-height:1.5;padding-bottom:40px;
+}
+h1,h2,h3{font-family:'Baloo 2',cursive;margin:0 0 10px;line-height:1.2;}
+.wrap{max-width:560px;margin:0 auto;padding:0 14px;}
+
+/* topo: álbum de selos */
+.topbar{position:sticky;top:0;z-index:40;background:var(--azul);border-bottom:4px solid var(--azul-esc);padding:8px 0 6px;}
+.topbar .wrap{display:flex;align-items:center;gap:8px;}
+.logo{font-family:'Baloo 2',cursive;font-weight:800;font-size:1rem;color:#FFF6D8;white-space:nowrap;}
+.ovos{display:flex;gap:5px;margin-left:auto;}
+.ov{width:24px;height:28px;border-radius:3px;background:#E3ECFB;border:3px dotted #9FBBEA;opacity:.55;transition:.25s;display:flex;align-items:center;justify-content:center;font-size:.8rem;}
+.ov.on{background:var(--amar);border-color:#fff;opacity:1;transform:translateY(-2px) rotate(-4deg);}
+.ov.on::after{content:'✉';color:var(--verm-esc);font-weight:900;}
+.tray-label{text-align:center;font-size:.72rem;color:#DDE9FF;font-weight:800;}
+
+.screen{display:none;}
+.screen.on{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+.card{background:#fff;border:3px solid var(--borda);border-radius:18px;padding:16px;margin:14px 0;box-shadow:0 4px 0 rgba(0,0,0,.06);}
+.card.blue{background:var(--azul-claro);border-color:#C3D6F6;}
+.card.green{background:#E9F6EF;border-color:#BFE3CF;}
+
+.hero{background:linear-gradient(180deg,#7FB2F2 0%,#A9CDF7 60%,#F7C531 60%,#EDB61C 100%);color:#fff;border-radius:20px;padding:20px 16px 18px;margin:16px 0;border:3px solid var(--azul-esc);text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--verm) 0 18px,#fff 18px 36px,var(--azul) 36px 54px,#fff 54px 72px);}
+.hero h1{font-size:1.95rem;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.22);margin:6px 0 2px;}
+.hero .sub{font-size:.95rem;font-weight:800;text-shadow:0 1px 0 rgba(0,0,0,.25);}
+.hero .prova{display:inline-block;margin-top:10px;background:var(--verm);color:#fff;font-weight:900;border-radius:999px;padding:5px 14px;font-size:.85rem;}
+.mascote{display:flex;gap:10px;align-items:flex-start;background:#fff;border:3px solid var(--borda);border-radius:16px;padding:12px;margin:12px 0;}
+.mascote .face{font-size:2.4rem;line-height:1;flex:0 0 auto;}
+.balao{position:relative;background:#FFF5D1;border:2px solid #EED98F;border-radius:14px;padding:9px 11px;font-weight:700;font-size:.95rem;flex:1;}
+.balao::before{content:'';position:absolute;left:-9px;top:14px;border:7px solid transparent;border-right-color:#EED98F;}
+
+.btn{display:block;width:100%;border:0;border-radius:14px;font-family:'Baloo 2',cursive;font-weight:700;font-size:1.05rem;padding:13px 14px;margin:9px 0;cursor:pointer;text-align:left;background:var(--azul);color:#fff;box-shadow:0 4px 0 var(--azul-esc);transition:.1s;position:relative;}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--azul-esc);}
+.btn:focus-visible{outline:4px solid var(--amar);outline-offset:2px;}
+.btn.yellow{background:var(--amar);color:#4A3500;box-shadow:0 4px 0 var(--amar-esc);}
+.btn.red{background:var(--verm);color:#fff;box-shadow:0 4px 0 var(--verm-esc);}
+.btn.green{background:var(--verde);color:#fff;box-shadow:0 4px 0 var(--verde-esc);}
+.btn.ghost{background:#fff;color:var(--azul-esc);border:3px solid var(--azul);box-shadow:none;}
+.btn.small{font-size:.92rem;padding:9px 12px;}
+.btn[disabled]{opacity:.45;cursor:not-allowed;}
+.btn.locked{background:#DAD7DF;color:#6C6878;box-shadow:0 4px 0 #BBB7C4;}
+.btn.glow{animation:glow 1.6s ease-in-out 3;}
+@keyframes glow{0%,100%{box-shadow:0 4px 0 var(--azul-esc),0 0 0 0 rgba(247,197,49,0);}50%{box-shadow:0 4px 0 var(--azul-esc),0 0 0 7px rgba(247,197,49,.6);}}
+.selo{display:inline-block;font-family:'Nunito';font-size:.72rem;font-weight:900;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle;}
+.selo.ok{background:#DDF3E6;color:#1F6B44;}
+.selo.novo{background:#FFF0B3;color:#7A5600;}
+.btn-row{display:flex;gap:8px;}
+.btn-row .btn{flex:1;}
+.menu-desc{font-size:.82rem;color:var(--cinza);margin:-4px 0 10px 4px;font-weight:700;}
+.menu-desc.lock{color:#8A4B2A;}
+.paisbox{background:#FFF0B3;border:2px solid #E5C24A;border-radius:14px;padding:10px 12px;margin:10px 0;font-weight:800;font-size:.92rem;}
+
+/* pílulas */
+.pill-box{background:#fff;border:3px dashed var(--azul);border-radius:18px;padding:22px 16px;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;}
+.pill-emoji{font-size:3.1rem;line-height:1;}
+.pill-text{font-size:1.1rem;font-weight:800;}
+.pill-extra{font-size:.98rem;font-weight:800;color:var(--azul-esc);background:var(--azul-claro);border-radius:12px;padding:8px 10px;}
+.pill-dots{display:flex;gap:6px;justify-content:center;margin:12px 0;flex-wrap:wrap;}
+.pill-dots i{width:10px;height:10px;border-radius:50%;background:#E3DCCD;display:block;}
+.pill-dots i.on{background:var(--verm);}
+.placas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.placas figure{margin:0;width:118px;text-align:center;font-size:.8rem;font-weight:900;line-height:1.2;}
+
+/* jogo */
+.q-count{font-size:.8rem;font-weight:900;color:var(--cinza);text-align:right;}
+.q-text{font-size:1.06rem;font-weight:800;margin:6px 0 12px;}
+.opt{display:block;width:100%;text-align:left;border:3px solid var(--borda);background:#fff;border-radius:14px;padding:12px 14px;margin:8px 0;font-family:'Nunito';font-weight:800;font-size:1rem;cursor:pointer;transition:.12s;color:var(--tinta);}
+.opt:hover{border-color:var(--azul);}
+.opt:focus-visible{outline:4px solid var(--amar);outline-offset:2px;}
+.opt.ok{background:#E2F4EA;border-color:var(--verde);}
+.opt.no{background:#FCE4E1;border-color:var(--erro);}
+.opt[disabled]{cursor:default;}
+.fb{margin:12px 0;padding:12px;border-radius:14px;font-weight:700;display:none;}
+.fb.on{display:block;}
+.fb.good{background:#E2F4EA;border:2px solid var(--verde);}
+.fb.bad{background:#FCE4E1;border:2px solid var(--erro);}
+.duo{display:flex;gap:8px;}
+.duo .opt{flex:1;text-align:center;}
+.vis{text-align:center;margin:4px 0 8px;}
+.frase{background:#FFFDF5;border:2px dashed var(--amar-esc);border-radius:14px;padding:12px;font-weight:800;font-size:1.05rem;text-align:center;margin:0 0 10px;}
+
+/* separar em grupos */
+.grp-card{background:#fff;border:3px solid var(--amar);border-radius:18px;padding:14px;text-align:center;margin:6px 0 10px;}
+.grp-btns{display:flex;flex-wrap:wrap;gap:8px;}
+.grp-btns .opt{flex:1 1 45%;text-align:center;margin:0;}
+.grp-btns .opt.shake{animation:shake .35s;border-color:var(--erro);background:#FCE4E1;}
+@keyframes shake{0%,100%{transform:none;}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+.baskets{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.basket{flex:1 1 45%;background:var(--azul-claro);border:2px dashed #9FBBEA;border-radius:14px;padding:8px;min-height:64px;font-size:.85rem;}
+.basket b{display:block;font-family:'Baloo 2';font-size:.95rem;}
+.chip{display:inline-block;background:#fff;border:2px solid var(--verde);border-radius:999px;padding:2px 8px;margin:3px 2px;font-weight:800;font-size:.82rem;}
+
+/* escrita */
+.wbox{border:3px solid var(--borda);border-radius:16px;padding:13px;margin:12px 0;background:#fff;}
+.wbox.red{border-color:var(--erro);background:#FFF2F0;}
+.wbox h4{margin:0 0 6px;font-family:'Baloo 2';font-size:1.02rem;}
+.wbox textarea{width:100%;min-height:90px;border:2px solid var(--borda);border-radius:12px;padding:10px;font-family:'Nunito';font-size:1rem;font-weight:600;resize:vertical;background:#FFFDF6;}
+.wbox textarea:focus{outline:3px solid var(--amar);border-color:var(--amar);}
+.warn{background:#FFF3CE;border:2px solid #E5B93C;border-radius:12px;padding:10px;margin:8px 0;font-weight:700;font-size:.93rem;}
+.redflag{background:#FCE4E1;border:2px solid var(--erro);border-radius:12px;padding:10px;margin:8px 0;font-weight:800;font-size:.9rem;color:#8E2A18;}
+.modelo{background:var(--azul-claro);border:2px solid #C3D6F6;border-radius:12px;padding:10px;margin:8px 0;font-weight:700;font-size:.95rem;}
+.chk{margin:8px 0;}
+.chk p{margin:6px 0 4px;font-weight:800;font-size:.94rem;}
+.chk .yn{display:flex;gap:8px;}
+.chk .yn button{flex:1;border:3px solid var(--borda);background:#fff;border-radius:10px;padding:7px;font-family:'Nunito';font-weight:900;cursor:pointer;font-size:.92rem;}
+.chk .yn button.sel-y{background:#E2F4EA;border-color:var(--verde);}
+.chk .yn button.sel-n{background:#FFF3CE;border-color:#E5B93C;}
+
+/* mural */
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;margin:8px 0;}
+.tbl th,.tbl td{border:2px solid var(--borda);padding:6px 8px;text-align:left;vertical-align:top;}
+.tbl th{background:var(--azul-claro);font-weight:900;}
+.postit{background:#FFF6A8;border:2px solid #E8D75A;border-radius:6px;padding:11px;margin:10px 0;font-weight:800;font-size:.95rem;box-shadow:2px 3px 0 rgba(0,0,0,.08);}
+.alerta{background:#FCE4E1;border:2px solid var(--erro);border-radius:12px;padding:11px;margin:10px 0;font-weight:800;font-size:.95rem;}
+
+/* resultado */
+.big{font-size:3.4rem;text-align:center;line-height:1;margin:6px 0;}
+.code-box{background:var(--tinta);color:#FFE38A;border-radius:14px;padding:14px;text-align:center;font-family:'Baloo 2';font-size:1.6rem;font-weight:800;letter-spacing:2px;margin:12px 0;}
+.codein{width:100%;border:3px solid var(--borda);border-radius:12px;padding:11px;font-family:'Baloo 2';font-size:1.1rem;text-align:center;letter-spacing:2px;text-transform:uppercase;}
+.save-info{font-size:.8rem;color:var(--cinza);font-weight:700;text-align:center;margin-top:10px;}
+textarea#backupBox{width:100%;min-height:76px;border:2px solid var(--borda);border-radius:12px;padding:9px;font-family:monospace;font-size:.78rem;}
+
+.mask{position:fixed;inset:0;background:rgba(30,30,50,.6);display:none;align-items:center;justify-content:center;z-index:90;padding:18px;}
+.mask.on{display:flex;}
+.md{background:#fff;border-radius:18px;padding:18px;max-width:380px;width:100%;border:4px solid var(--amar);}
+.md h3{font-size:1.2rem;}
+.conf{position:fixed;top:-12px;width:9px;height:14px;z-index:95;pointer-events:none;border-radius:2px;}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:0;}}
+@media (prefers-reduced-motion:reduce){.screen.on{animation:none;}.conf{display:none;}.btn:active{transform:none;}.btn.glow{animation:none;}.grp-btns .opt.shake{animation:none;}}
+.rodape{text-align:center;font-size:.78rem;color:var(--cinza);font-weight:700;padding:18px 0 6px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="logo">🕊️ Correio do Pipo</span>
+    <div class="ovos">
+      <div class="ov" id="ov1"></div><div class="ov" id="ov2"></div><div class="ov" id="ov3"></div>
+      <div class="ov" id="ov4"></div><div class="ov" id="ov5"></div><div class="ov" id="ov6"></div>
+    </div>
+  </div>
+  <div class="tray-label" id="trayLabel">Seus selos</div>
+</div>
+
+<!-- ============ MENU ============ -->
+<section class="screen on" id="scr-menu">
+  <div class="wrap">
+    <div class="hero">
+      <h1>Correio do Pipo</h1>
+      <div class="sub">Geografia · 2º ano · Colégio São José</div>
+      <div class="sub">Transportes e comunicação</div>
+      <div class="prova">🗓️ Avaliação: sexta-feira, 30/10</div>
+    </div>
+
+    <div class="mascote">
+      <div class="face">🕊️</div>
+      <div class="balao">
+        Olá, jovem aprendiz! Eu sou o <b>Pipo</b>, o pombo-correio. Levo cartas para todo canto,
+        então preciso conhecer os <b>meios de transporte</b> e os <b>meios de comunicação</b>!
+        Vamos fazer <b>6 entregas</b>. Elas abrem <b>uma de cada vez, na ordem</b>:
+        termine uma para destravar a próxima. Cada entrega feita vale um <b>selo</b> lá em cima! ✉️
+      </div>
+    </div>
+
+    <div id="paisSelo"></div>
+    <h2>📮 A rota das entregas</h2>
+    <div id="menuList"></div>
+
+    <button class="btn ghost small" onclick="go('scr-pais')">👪 Área dos pais</button>
+    <div class="save-info" id="saveInfo"></div>
+    <div class="rodape">Feito para estudar sozinho, no celular ou no computador.</div>
+  </div>
+</section>
+
+<!-- ============ MURAL (CARTAZ) ============ -->
+<section class="screen" id="scr-mural">
+  <div class="wrap">
+    <h1 style="margin-top:14px;">📋 Mural do Correio</h1>
+    <p style="font-weight:700;">Tudo o que cai na avaliação de <b>30/10</b>, num lugar só. Leia com um adulto, devagar, até o fim.</p>
+
+    <div class="card">
+      <h3>🚌 Para que servem?</h3>
+      <table class="tbl">
+        <tr><th>Meios de transporte</th><th>Meios de comunicação</th></tr>
+        <tr><td>Ajudam as pessoas a <b>se deslocar</b> e a levar produtos de um lugar para outro.</td><td>Ajudam as pessoas a <b>se conectar</b> e a trocar informações.</td></tr>
+        <tr><td>Encurtam o <b>tempo de deslocamento</b>. De carro a viagem dura bem menos do que a pé ou de bicicleta.</td><td>Aproximam as pessoas com <b>chamadas de áudio e vídeo</b> e <b>troca de mensagens</b>.</td></tr>
+      </table>
+      <div class="postit">💛 A tecnologia diminui distâncias. Numa chamada, falamos com alguém em poucos segundos, esteja a pessoa em qualquer lugar do mundo.</div>
+    </div>
+
+    <div class="card green">
+      <h3>🚚 Os 3 tipos de transporte</h3>
+      <table class="tbl">
+        <tr><th>Tipo</th><th>Por onde?</th><th>Exemplos</th></tr>
+        <tr><td><b>Terrestre</b> 🛣️</td><td>sobre o solo</td><td>carro, ônibus, caminhão, bicicleta, moto, trem, metrô</td></tr>
+        <tr><td><b>Aéreo</b> ☁️</td><td>pelo ar</td><td>avião, helicóptero, drone, balão</td></tr>
+        <tr><td><b>Aquático</b> 🌊</td><td>pela água</td><td>barco, navio, canoa, submarino</td></tr>
+      </table>
+      <div class="postit">💛 Cada tipo de transporte é usado conforme o <b>caminho</b>, a <b>distância</b> e a <b>necessidade</b> das pessoas. Num lugar com rio, o barco é o mais adequado.</div>
+      <div class="alerta">⚠️ Pegadinha: <b>trem e metrô</b> andam sobre <b>trilhos</b>, no chão: são <b>TERRESTRES</b>. <b>Helicóptero e drone</b> voam: são <b>AÉREOS</b>.</div>
+    </div>
+
+    <div class="card blue">
+      <h3>🛣️ As vias de circulação</h3>
+      <table class="tbl">
+        <tr><th>Transporte</th><th>Via de circulação</th></tr>
+        <tr><td>Carros, motos e caminhões</td><td>pistas, ruas e estradas</td></tr>
+        <tr><td>Trens e metrôs</td><td>trilhos</td></tr>
+        <tr><td>Aquáticos</td><td>rios, lagos e mares (mapas especiais mostram a profundidade da água e os lugares mais seguros)</td></tr>
+        <tr><td>Aéreos</td><td>vias aéreas, controladas por <b>radares</b> (os aviões mantêm uma distância segura)</td></tr>
+      </table>
+      <div class="postit">💛 As vias precisam ser organizadas para os deslocamentos serem seguros. Cada via tem regras, como <b>limite de velocidade</b> e <b>sentido de direção</b>.</div>
+    </div>
+
+    <div class="card">
+      <h3>🚦 O semáforo</h3>
+      <div class="vis" id="muralSemaforos"></div>
+      <table class="tbl">
+        <tr><th>Semáforo dos motoristas</th><th>Semáforo dos pedestres</th></tr>
+        <tr><td>🔴 vermelho = <b>Pare</b><br>🟡 amarelo = <b>Atenção!</b><br>🟢 verde = <b>Siga</b></td><td>🔴 vermelho = <b>Espere</b><br>🟢 verde = <b>Atravesse</b></td></tr>
+      </table>
+      <div class="alerta">⚠️ O semáforo dos motoristas tem <b>3 cores</b>. O dos pedestres tem só <b>2</b>: Espere e Atravesse.</div>
+    </div>
+
+    <div class="card green">
+      <h3>🪧 As placas de trânsito</h3>
+      <div class="placas" id="muralPlacas"></div>
+      <div class="postit">💛 Placas, semáforos e faixas pintadas no chão orientam o movimento nas ruas: quando parar ou seguir, por onde caminhar e quais sentidos são permitidos.</div>
+    </div>
+
+    <div class="card blue">
+      <h3>🛡️ Segurança no trânsito</h3>
+      <table class="tbl">
+        <tr><th>Quem</th><th>O que deve fazer</th></tr>
+        <tr><td>🚶 Pedestres</td><td>andar na <b>calçada</b> e atravessar na <b>faixa</b></td></tr>
+        <tr><td>🚲 Ciclistas</td><td>usar <b>capacete</b> e andar nas <b>ciclovias</b></td></tr>
+        <tr><td>🚗 Motoristas</td><td>respeitar a <b>velocidade</b>, as <b>placas</b> e o <b>semáforo</b></td></tr>
+      </table>
+      <div class="postit">💛 A segurança no trânsito depende da atenção e do cuidado de <b>todos</b>.</div>
+    </div>
+
+    <div class="card">
+      <h3>✉️ Formas de comunicação</h3>
+      <table class="tbl">
+        <tr><th>Individuais 👤</th><th>De massa 👥</th></tr>
+        <tr><td>falam diretamente com <b>uma pessoa</b></td><td>chegam a <b>muitas pessoas ao mesmo tempo</b></td></tr>
+        <tr><td>telefonema, carta, bilhete, mensagem de celular, chamada de vídeo</td><td>rádio, televisão, jornal, sites de notícias, redes sociais</td></tr>
+      </table>
+      <div class="postit">💛 A televisão pode transmitir <b>"ao vivo"</b>: mostra um acontecimento no mesmo instante, para lugares diferentes do mundo.</div>
+      <div class="alerta">⚠️ Pegadinha: a <b>carta</b> é <b>individual</b> (não é de massa) e demora mais para chegar do que uma mensagem de celular.</div>
+    </div>
+
+    <div class="card green">
+      <h3>💻 Antigamente × hoje · internet</h3>
+      <table class="tbl">
+        <tr><th>Antigamente</th><th>Hoje</th></tr>
+        <tr><td>cartas e telegramas, que levavam mais tempo para chegar</td><td>mensagens, fotos e vídeos enviados quase na hora por celulares e computadores</td></tr>
+      </table>
+      <p style="font-weight:700;">Com a internet podemos conversar em tempo real, fazer chamadas de vídeo, acompanhar notícias "ao vivo" e acessar informações de qualquer lugar.</p>
+      <div class="postit">🛡️ Cuidados na internet:<br>• criança usa a internet <b>com os pais ou um adulto responsável</b>;<br>• não publicar fotos que mostrem a intimidade da família;<br>• não baixar jogos de sites desconhecidos (e só baixar com um adulto);<br>• salvar, fechar os arquivos e desligar o computador quando não for mais usar.</div>
+    </div>
+
+    <div class="card" style="text-align:center;" id="muralFim">
+      <p style="font-weight:800;">Chegou até aqui? Então clique no botão:</p>
+      <button class="btn green" id="btnLiMural" onclick="concluirMural()" disabled>✅ Li o mural até o fim</button>
+      <p class="menu-desc" id="muralHint" style="margin:0;">O botão acende quando você rolar até o fim do mural.</p>
+      <button class="btn yellow" id="btnProntoFinal" onclick="openStep(7)" style="display:none;">🏆 Pronta(o) para a Grande Entrega!</button>
+    </div>
+    <button class="btn ghost small" onclick="go('scr-menu')">⬅️ Voltar para o correio</button>
+    <div class="rodape">&nbsp;</div>
+  </div>
+</section>
+
+<!-- ============ PÍLULAS ============ -->
+<section class="screen" id="scr-pill">
+  <div class="wrap">
+    <h2 id="pillTitle" style="margin-top:14px;"></h2>
+    <div class="pill-box" id="pillBox"></div>
+    <div class="pill-dots" id="pillDots"></div>
+    <button class="btn yellow" id="pillNext">Entendi! Próximo ➡️</button>
+    <button class="btn ghost small" onclick="go('scr-menu')">⬅️ Voltar para o correio</button>
+    <div class="rodape">&nbsp;</div>
+  </div>
+</section>
+
+<!-- ============ JOGO ============ -->
+<section class="screen" id="scr-game">
+  <div class="wrap">
+    <h2 id="gameTitle" style="margin-top:14px;"></h2>
+    <div class="q-count" id="gameCount"></div>
+    <div id="gameArea"></div>
+    <div class="fb" id="gameFb"></div>
+    <button class="btn yellow" id="gameNext" style="display:none;">Continuar ➡️</button>
+    <button class="btn ghost small" onclick="go('scr-menu')">⬅️ Voltar para o correio</button>
+    <div class="rodape">&nbsp;</div>
+  </div>
+</section>
+
+<!-- ============ ENTREGA FEITA ============ -->
+<section class="screen" id="scr-won">
+  <div class="wrap">
+    <div class="card" style="text-align:center;">
+      <div class="big">✉️</div>
+      <h2>Entrega feita!</h2>
+      <p id="wonMsg" style="font-weight:800;"></p>
+      <button class="btn yellow" id="wonNext">Próxima entrega ➡️</button>
+      <button class="btn ghost small" onclick="go('scr-menu')">⬅️ Voltar para o correio</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIM DA GRANDE ENTREGA ============ -->
+<section class="screen" id="scr-fim">
+  <div class="wrap">
+    <div class="card" style="text-align:center;">
+      <div class="big">🏆</div>
+      <h2>Grande Entrega concluída!</h2>
+      <p style="font-weight:900;font-size:1.18rem;" id="fimScore"></p>
+      <p id="fimMsg"></p>
+      <div class="code-box" id="fimCode"></div>
+      <p style="font-size:.85rem;font-weight:700;">Mostre este código para um adulto. 😊</p>
+      <button class="btn green" onclick="go('scr-menu')">⬅️ Voltar para o correio</button>
+      <button class="btn ghost small" onclick="openStep(7)">🔁 Fazer a Grande Entrega de novo</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÁREA DOS PAIS ============ -->
+<section class="screen" id="scr-pais">
+  <div class="wrap">
+    <h1 style="margin-top:14px;">👪 Área dos pais</h1>
+
+    <div class="card blue">
+      <h3>🗓️ Plano de estudo sugerido (avaliação na sexta, 30/10)</h3>
+      <p><b>Segunda à tarde:</b> entregas 1 e 2 (para que servem os transportes e os 3 tipos).<br>
+      <b>Segunda à noite:</b> entregas 3 e 4 (vias de circulação, semáforo, placas e segurança).<br>
+      <b>Terça ou quarta:</b> entregas 5 e 6 (comunicação individual e de massa, internet e cuidados).<br>
+      <b>Quinta:</b> o Mural do Correio lido junto + a Grande Entrega.<br>
+      <b>Sexta, antes da aula:</b> só o Mural.</p>
+      <p style="font-size:.9rem;"><b>Como funciona:</b> os materiais abrem um por vez, na ordem. Conclua um para destravar o próximo.
+      O progresso fica <b>neste aparelho</b>; para continuar em outro, use 📥 Exportar / 📤 Importar ou a chave dos pais abaixo.</p>
+      <p style="font-size:.9rem;"><b>Atenção:</b> o comunicado pede para estudar também os <b>registros do caderno</b>. Eles não estão neste kit: vale dar uma olhada junto.</p>
+    </div>
+
+    <div class="card">
+      <h3>📊 Relatório e gabarito</h3>
+      <p style="font-size:.92rem;">Digite o código <b>PAIS-77</b> (fixo da família) ou o código <b>SIM-XX-YY</b> que apareceu no fim da Grande Entrega.</p>
+      <input class="codein" id="paisCode" placeholder="PAIS-77" maxlength="9">
+      <button class="btn small" onclick="abrirRelatorio()">Ver relatório e gabarito</button>
+      <div id="paisTrilha"></div>
+      <div id="paisReport"></div>
+    </div>
+
+    <div class="card">
+      <h3>🔑 Sobre o código SIM-XX-YY</h3>
+      <p style="font-size:.93rem;"><b>XX</b> = quantas questões da Grande Entrega foram acertadas (00 a 10).<br>
+      <b>YY</b> = duas letras fixas deste aparelho. Se mudarem, o material foi zerado.</p>
+    </div>
+
+    <div class="card">
+      <h3>💾 Salvar, passar de aparelho e zerar</h3>
+      <div class="btn-row">
+        <button class="btn small green" onclick="exportar()">📥 Exportar</button>
+        <button class="btn small" onclick="importar()">📤 Importar</button>
+      </div>
+      <textarea id="backupBox" placeholder="O código do backup aparece (ou é colado) aqui."></textarea>
+      <button class="btn small red" onclick="zerar()">🗑️ Zerar tudo</button>
+    </div>
+
+    <button class="btn ghost" onclick="go('scr-menu')">⬅️ Voltar para o correio</button>
+    <div class="rodape">Fonte: livro Ecos Geografia 2 (SM), Módulo 8 — Transportes e comunicação: pp. 114-117, 122, 123, 125 e 126 (transportes) e pp. 118-120 e 124 (comunicação).</div>
+  </div>
+</section>
+
+<div class="mask" id="mask">
+  <div class="md">
+    <h3 id="mdTitle"></h3>
+    <p id="mdMsg"></p>
+    <button class="btn" id="mdOk">Está bem</button>
+    <button class="btn ghost" id="mdCancel" style="display:none;">Cancelar</button>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CORREIO DO PIPO — Geografia 2º ano — Colégio São José
+   Fonte: livro Ecos Geografia 2 (SM Aprendizagem), Módulo 8
+   "Transportes e comunicação": p.114 Diminuindo distâncias,
+   p.115 Tipos de transporte, p.116 Vias de circulação,
+   p.117 Sinalização de trânsito, p.118 Formas de comunicação,
+   p.119 Internet e comunicação, p.120 Cuidados ao utilizar a
+   internet, p.122 Segurança no trânsito, p.123 Multidesafio,
+   p.124 Hora extra, pp.125-126 Antes de terminar.
+   Sem áudio. Sem nome de pessoas reais.
+   ========================================================= */
+"use strict";
+
+/* ---------- desenhos ---------- */
+function placa(k,tam){
+  tam=tam||90;
+  var s='<svg viewBox="0 0 120 120" width="'+tam+'" height="'+tam+'" role="img" aria-label="placa de trânsito">';
+  var losango='<rect x="22" y="22" width="76" height="76" rx="6" transform="rotate(45 60 60)" fill="#FFD21F" stroke="#111" stroke-width="5"/>';
+  function circ(fill){ return '<circle cx="60" cy="60" r="50" fill="'+fill+'" stroke="#D7262E" stroke-width="12"/>'; }
+  var barra='<line x1="27" y1="27" x2="93" y2="93" stroke="#D7262E" stroke-width="10"/>';
+  if(k==='semaforo') s+=losango+'<rect x="49" y="31" width="22" height="58" rx="6" fill="#111"/><circle cx="60" cy="42" r="6" fill="#E53935"/><circle cx="60" cy="60" r="6" fill="#FDD835"/><circle cx="60" cy="78" r="6" fill="#43A047"/>';
+  else if(k==='lombada') s+=losango+'<path d="M28 74 H44 Q60 40 76 74 H92" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>';
+  else if(k==='pedestres') s+=losango+'<text x="60" y="76" font-size="42" text-anchor="middle">🚶</text>';
+  else if(k==='virar') s+=circ('#fff')+'<path d="M48 90 V62 Q48 48 62 48 H72" fill="none" stroke="#111" stroke-width="8"/><polygon points="70,34 88,48 70,62" fill="#111"/>'+barra;
+  else if(k==='estacionar') s+='<circle cx="60" cy="60" r="50" fill="#1E5BC6" stroke="#D7262E" stroke-width="12"/><line x1="30" y1="30" x2="90" y2="90" stroke="#D7262E" stroke-width="10"/><line x1="90" y1="30" x2="30" y2="90" stroke="#D7262E" stroke-width="10"/>';
+  else if(k==='onibus') s+=circ('#fff')+'<text x="60" y="76" font-size="42" text-anchor="middle">🚌</text>';
+  else if(k==='vel50') s+=circ('#fff')+'<text x="60" y="70" font-size="36" font-weight="900" text-anchor="middle" font-family="Nunito,sans-serif" fill="#111">50</text><text x="60" y="88" font-size="12" font-weight="800" text-anchor="middle" font-family="Nunito,sans-serif" fill="#111">km/h</text>';
+  return s+'</svg>';
+}
+var PLACAS={semaforo:'Semáforo à frente',virar:'Proibido virar à direita',estacionar:'Proibido parar e estacionar',
+  lombada:'Lombada',onibus:'Circulação exclusiva de ônibus',vel50:'Velocidade máxima de 50 km/h',pedestres:'Trânsito de pedestres'};
+function gradePlacas(lista,tam){
+  var h='<div class="placas">', i;
+  for(i=0;i<lista.length;i++) h+='<figure>'+placa(lista[i],tam||78)+'<figcaption>'+PLACAS[lista[i]]+'</figcaption></figure>';
+  return h+'</div>';
+}
+/* semáforo: acesa = 'r' | 'y' | 'g' | 'todas' ; ped = semáforo de pedestres (2 luzes) */
+function semaforo(acesa,ped,tam){
+  tam=tam||70;
+  var cores=ped?[['r','#E53935'],['g','#43A047']]:[['r','#E53935'],['y','#FDD835'],['g','#43A047']];
+  var alto=ped?84:118, s='<svg viewBox="0 0 60 '+alto+'" width="'+Math.round(tam*60/alto)+'" height="'+tam+'" role="img" aria-label="semáforo">';
+  s+='<rect x="6" y="4" width="48" height="'+(alto-8)+'" rx="10" fill="#222"/>';
+  var i;
+  for(i=0;i<cores.length;i++){
+    var on=(acesa==='todas'||acesa===cores[i][0]), cy=28+i*36;
+    s+='<circle cx="30" cy="'+cy+'" r="13" fill="'+(on?cores[i][1]:'#555')+'"/>';
+    if(ped&&on) s+='<text x="30" y="'+(cy+6)+'" font-size="15" text-anchor="middle">'+(cores[i][0]==='r'?'✋':'🚶')+'</text>';
+  }
+  return s+'</svg>';
+}
+function vis(html){ return '<div class="vis">'+html+'</div>'; }
+
+var TITULOS={1:'🛣️ Diminuindo Distâncias',2:'🚚 Garagem dos Transportes',3:'🗺️ Caminhos e Vias',
+             4:'🚦 Sinais do Trânsito',5:'✉️ Mensagens de Todo Jeito',6:'💻 Internet com Cuidado'};
+var DESC={1:'Para que servem os meios de transporte e os meios de comunicação.',
+          2:'Os 3 tipos de transporte: terrestre, aéreo e aquático.',
+          3:'As vias de circulação: ruas, trilhos, rios e mares, vias aéreas.',
+          4:'Semáforo, placas de trânsito e segurança de pedestres, ciclistas e motoristas.',
+          5:'Comunicação individual e de massa, antigamente e hoje.',
+          6:'A internet e os cuidados ao usar. ⭐ Tem escrita.'};
+
+/* =========================================================
+   PÍLULAS DE TEORIA (tudo do livro, pp. 114-126)
+   ========================================================= */
+var PILLS={
+1:{t:'🛣️ Entrega 1 — Diminuindo Distâncias',p:[
+ {e:'🚶',x:'Ao longo do dia, as pessoas <b>percorrem caminhos</b> e transportam produtos e ideias.'},
+ {e:'🚌',x:'A distância entre os lugares pode ser vencida pelos <b>meios de transporte</b>. Eles <b>encurtam o tempo</b> de deslocamento.'},
+ {e:'🚗',x:'De <b>carro</b>, uma viagem dura bem <b>menos</b> do que se fosse feita a pé ou de bicicleta.',y:'carro = chega mais rápido · a pé ou de bicicleta = demora mais'},
+ {e:'📱',x:'Já os <b>meios de comunicação</b> aproximam as pessoas, principalmente com <b>chamadas de áudio e vídeo</b> e com a <b>troca de mensagens</b>.'},
+ {e:'🌎',x:'A tecnologia <b>diminui distâncias</b>: facilita encontros, conversas e deslocamentos.',y:'Numa chamada, falamos com alguém em poucos segundos, com a pessoa em qualquer lugar do mundo.'},
+ {e:'🔗',x:'Para não esquecer:',y:'Transporte ajuda as pessoas a SE DESLOCAR · Comunicação ajuda as pessoas a SE CONECTAR'}
+]},
+2:{t:'🚚 Entrega 2 — Garagem dos Transportes',p:[
+ {e:'🚗',x:'Alguns meios de transporte se movem <b>sobre o solo</b>: carros, ônibus, caminhões, bicicletas, trens e metrôs.',y:'São os meios de transporte TERRESTRES 🛣️'},
+ {e:'✈️',x:'Outros se movem <b>pelo ar</b>: aviões, helicópteros e drones.',y:'São os meios de transporte AÉREOS ☁️'},
+ {e:'🚢',x:'Outros se deslocam <b>pela água</b>: barcos, navios, canoas e submarinos.',y:'São os meios de transporte AQUÁTICOS 🌊'},
+ {e:'🚆',x:'<b>Trem e metrô</b> andam sobre <b>trilhos</b>, no chão. Por isso são <b>terrestres</b>!'},
+ {e:'🎈',x:'O <b>balão</b> também voa: é aéreo. A <b>moto</b> anda sobre duas rodas: é terrestre.'},
+ {e:'🧭',x:'Cada tipo de transporte funciona de um jeito e é usado conforme o <b>caminho</b>, a <b>distância</b> e a <b>necessidade</b> das pessoas.'},
+ {e:'🏞️',x:'Num lugar com um <b>rio</b> largo, o meio de transporte mais adequado para se deslocar é o <b>barco</b>.'}
+]},
+3:{t:'🗺️ Entrega 3 — Caminhos e Vias',p:[
+ {e:'🛣️',x:'Os meios de transporte usam as <b>vias de circulação</b> para se locomover.'},
+ {e:'🚗',x:'Carros, motos e caminhões se deslocam por <b>pistas, ruas e estradas</b>.'},
+ {e:'🛤️',x:'Trens e metrôs se deslocam sobre <b>trilhos</b>.'},
+ {e:'🌊',x:'As vias dos transportes aquáticos são os <b>rios, lagos e mares</b>.',y:'Mapas especiais mostram a profundidade da água e os lugares mais seguros para os barcos.'},
+ {e:'✈️',x:'As vias aéreas são controladas por <b>radares</b>. Eles ajudam os aviões a manter uma <b>distância segura</b> uns dos outros.'},
+ {e:'🦺',x:'<b>Faixas de segurança, ciclovias e sinais de trânsito</b> nas ruas orientam pedestres, motoristas e ciclistas.'},
+ {e:'📏',x:'As vias precisam ser <b>organizadas</b> para que os deslocamentos sejam seguros. Cada via tem suas regras.',y:'Exemplos de regras: limite de velocidade e sentido de direção'}
+]},
+4:{t:'🚦 Entrega 4 — Sinais do Trânsito',p:[
+ {e:'🪧',x:'<b>Placas, semáforos, faixas pintadas no chão</b> e outros sinais orientam o movimento nas ruas.',y:'Seguindo os sinais, as pessoas andam com mais cuidado e evitam acidentes.'},
+ {e:semaforo('todas',false,90),x:'O <b>semáforo</b> ajuda a organizar o trânsito. Ele tem <b>três cores</b>, que orientam motoristas e pedestres.',y:'🔴 vermelho = Pare · 🟡 amarelo = Atenção! · 🟢 verde = Siga'},
+ {e:semaforo('todas',true,80),x:'O semáforo dos <b>pedestres</b> tem só duas luzes.',y:'🔴 vermelho = Espere · 🟢 verde = Atravesse'},
+ {e:'💡',x:'A sinalização mostra <b>quando parar ou seguir</b>, <b>por onde caminhar</b> e <b>quais sentidos são permitidos</b>.'},
+ {e:gradePlacas(['semaforo','lombada','pedestres'],74),x:'Placas amarelas de <b>aviso</b>:'},
+ {e:gradePlacas(['virar','estacionar','onibus','vel50'],74),x:'Placas com borda <b>vermelha</b> mostram <b>regras</b>:'},
+ {e:'🛡️',x:'A segurança no trânsito depende da <b>atenção e do cuidado de todos</b>.'},
+ {e:'🚶',x:'<b>Pedestres</b> devem andar na <b>calçada</b> e atravessar na <b>faixa</b>.'},
+ {e:'🚲',x:'<b>Ciclistas</b> precisam usar <b>capacete</b> e andar nas <b>ciclovias</b>.'},
+ {e:'🚗',x:'<b>Motoristas</b> devem respeitar a <b>velocidade</b>, as <b>placas</b> e o <b>semáforo</b>.'},
+ {e:'😊',x:'Quando cada pessoa segue as regras, as vias ficam <b>mais seguras</b> e os deslocamentos acontecem com mais <b>tranquilidade</b>.'}
+]},
+5:{t:'✉️ Entrega 5 — Mensagens de Todo Jeito',p:[
+ {e:'💬',x:'As pessoas usam diferentes <b>formas de comunicação</b> para trocar informações.'},
+ {e:'👤',x:'Algumas são <b>individuais</b>: servem para falar <b>diretamente com uma pessoa</b>.',y:'telefonema · carta · mensagem de celular · conversa por vídeo'},
+ {e:'👥',x:'Outras chegam a <b>muitas pessoas ao mesmo tempo</b>: são os meios de <b>comunicação de massa</b>.',y:'rádio · televisão · jornal · sites · redes sociais'},
+ {e:'📺',x:'A <b>televisão</b> pode transmitir <b>"ao vivo"</b> um acontecimento para diferentes lugares do mundo.'},
+ {e:'✉️',x:'A <b>carta</b> pode ser enviada pelo <b>correio</b>. Ela é uma comunicação <b>individual</b>.'},
+ {e:'🐢',x:'<b>Antigamente</b>, cartas e telegramas eram muito usados e <b>demoravam mais</b> para chegar.'},
+ {e:'⚡',x:'<b>Hoje</b>, mensagens, fotos e vídeos são enviados <b>quase na hora</b> por celulares e computadores.'},
+ {e:'🔑',x:'Para não confundir:',y:'INDIVIDUAL = fala com UMA pessoa · MASSA = chega a MUITAS pessoas ao mesmo tempo'}
+]},
+6:{t:'💻 Entrega 6 — Internet com Cuidado',p:[
+ {e:'🌐',x:'Ao longo do tempo, a <b>tecnologia transformou</b> o jeito como nos comunicamos e criou novas formas de conversar.'},
+ {e:'💻',x:'Com a <b>internet</b> podemos conversar em tempo real, fazer <b>chamadas de vídeo</b>, acompanhar notícias "ao vivo" e acessar informações de qualquer lugar.'},
+ {e:'🤝',x:'Isso facilita a troca de informações e <b>aproxima as pessoas</b>, mesmo quando estão longe.'},
+ {e:'📰',x:'Pelo <b>jornal</b> e pela <b>televisão</b> recebemos notícias de qualquer lugar do mundo.'},
+ {e:'🏠',x:'A internet facilita a vida: dá para fazer <b>pesquisas da escola</b> e compartilhar informações sem sair de casa. Mas é preciso ter <b>cuidados</b>!'},
+ {e:'👨‍👩‍👧',x:'Crianças devem usar a internet <b>acompanhadas pelos pais</b> ou por adultos responsáveis.'},
+ {e:'📸',x:'<b>Não publique fotos</b> que mostrem a sua intimidade ou a da sua família.'},
+ {e:'🎮',x:'Evite <b>baixar jogos</b> de sites que você não conhece. Quando for baixar, faça isso <b>com um adulto</b>.'},
+ {e:'🔌',x:'<b>Desligue o computador</b> quando não for mais usar. Antes, <b>salve e feche</b> os arquivos.'}
+]}
+};
+
+/* =========================================================
+   MINIJOGOS — t: mc | duo | grp | esc
+   c = índice da alternativa certa (guardada pelo conteúdo;
+   a ordem na tela é embaralhada com semente fixa)
+   ========================================================= */
+var TC=['🚌 Transporte','📱 Comunicação'];
+var VF=['✅ Verdadeiro','❌ Falso'];
+var G3=['🛣️ Terrestre','☁️ Aéreo','🌊 Aquático'];
+var JOGO={
+1:[
+ {t:'mc',p:'Para que servem os meios de transporte?',o:['Para as pessoas se deslocarem e levarem produtos de um lugar para outro','Para mandar mensagens pelo celular','Para assistir às notícias na televisão','Para escrever bilhetes'],c:0,ex:{1:'Mandar mensagens é coisa dos meios de comunicação.',2:'Ver notícias é coisa dos meios de comunicação.',3:'Bilhete é uma forma de comunicação.'},bom:'Os meios de transporte ajudam as pessoas a se deslocar.'},
+ {t:'mc',p:'E os meios de comunicação servem para:',o:['As pessoas se conectarem e trocarem informações','Levar cargas de um lugar para outro','Atravessar rios e mares','Andar sobre trilhos'],c:0,ex:{1:'Levar cargas é coisa dos meios de transporte.',2:'Atravessar rios é coisa dos meios de transporte.',3:'Trilhos são vias de transporte.'},bom:'Os meios de comunicação ajudam as pessoas a se conectar.'},
+ {t:'mc',p:'Qual destes vence uma grande distância em MENOS tempo?',vis:vis('<span style="font-size:2.6rem;">🚶 🚲 🚌</span>'),o:['O ônibus','Ir a pé','A bicicleta'],c:0,ex:{1:'A pé é o jeito que mais demora.',2:'A bicicleta é mais lenta que um veículo com motor.'},bom:'Os veículos encurtam o tempo de deslocamento.'},
+ {t:'mc',p:'De carro, uma viagem dura ___ do que se fosse feita a pé ou de bicicleta.',o:['bem menos tempo','bem mais tempo','o mesmo tempo'],c:0,ex:{1:'É o contrário: o carro é mais rápido.',2:'Não. O carro chega antes.'},bom:'O carro faz a viagem durar bem menos.'},
+ {t:'mc',p:'Os meios de transporte ___ o tempo de deslocamento.',o:['encurtam','aumentam','não mudam'],c:0,ex:{1:'Eles deixam a viagem mais curta, não mais longa.',2:'Eles mudam, sim: deixam a viagem mais rápida.'},bom:'Encurtar é deixar mais curto.'},
+ {t:'mc',p:'Os meios de comunicação aproximam as pessoas, principalmente com:',o:['chamadas de áudio e vídeo e troca de mensagens','aviões e helicópteros','pistas e estradas','placas de trânsito'],c:0,ex:{1:'Aviões e helicópteros são meios de transporte.',2:'Pistas e estradas são vias de circulação.',3:'Placas são sinais de trânsito.'},bom:'Chamadas e mensagens aproximam as pessoas.'},
+ {t:'mc',p:'Numa chamada, podemos falar com alguém que está:',o:['em qualquer lugar do mundo, em poucos segundos','só na mesma rua','só dentro de casa','só depois de muitos dias'],c:0,ex:{1:'A chamada vai muito mais longe!',2:'A chamada vai muito mais longe!',3:'A chamada é rapidinha: poucos segundos.'},bom:'A tecnologia diminui distâncias.'},
+ {t:'duo',p:'<div class="frase">🚌 Ônibus</div>É meio de transporte ou de comunicação?',o:TC,c:0,bom:'O ônibus leva pessoas de um lugar para outro.'},
+ {t:'duo',p:'<div class="frase">🎥 Chamada de vídeo</div>É meio de transporte ou de comunicação?',o:TC,c:1,bom:'A chamada de vídeo conecta as pessoas.'},
+ {t:'duo',p:'<div class="frase">🚲 Bicicleta</div>É meio de transporte ou de comunicação?',o:TC,c:0,bom:'A bicicleta leva a pessoa de um lugar para outro.'},
+ {t:'duo',p:'<div class="frase">💬 Troca de mensagens</div>É meio de transporte ou de comunicação?',o:TC,c:1,bom:'Mensagens servem para se comunicar.'}
+],
+2:[
+ {t:'grp',p:'Separe cada meio de transporte no seu grupo: por onde ele se move?',grupos:G3,
+  itens:[{e:'🛳️',n:'Navio',g:2,d:'O navio anda pela água.'},{e:'✈️',n:'Avião',g:1,d:'O avião voa pelo ar.'},{e:'🚚',n:'Caminhão',g:0,d:'O caminhão anda no chão, pelas estradas.'},
+         {e:'🚆',n:'Trem',g:0,d:'O trem anda sobre trilhos, no chão.'},{e:'⛵',n:'Barco a vela',g:2,d:'O barco anda pela água.'},{e:'🚗',n:'Carro',g:0,d:'O carro anda no chão, pelas ruas.'},
+         {e:'🚁',n:'Helicóptero',g:1,d:'O helicóptero voa pelo ar.'},{e:'🏍️',n:'Moto',g:0,d:'A moto anda no chão, pelas ruas.'},{e:'🎈',n:'Balão',g:1,d:'O balão voa pelo ar.'}],
+  bom:'Terrestre = solo · Aéreo = ar · Aquático = água.'},
+ {t:'mc',p:'Os meios de transporte que se movem <b>sobre o solo</b> são chamados de:',o:['terrestres','aéreos','aquáticos'],c:0,ex:{1:'Aéreos se movem pelo ar.',2:'Aquáticos se movem pela água.'},bom:'Sobre o solo = terrestres.'},
+ {t:'mc',p:'Avião, helicóptero e drone são meios de transporte:',o:['aéreos','terrestres','aquáticos'],c:0,ex:{1:'Eles não andam no chão: voam!',2:'Eles não andam na água: voam!'},bom:'Pelo ar = aéreos.'},
+ {t:'mc',p:'Barco, navio, canoa e submarino são meios de transporte:',o:['aquáticos','aéreos','terrestres'],c:0,ex:{1:'Eles não voam.',2:'Eles não andam no chão.'},bom:'Pela água = aquáticos.'},
+ {t:'mc',p:'Um veículo que circula <b>sobre trilhos</b> é um meio de transporte:',o:['terrestre','aquático','aéreo'],c:0,ex:{1:'Trilhos ficam no chão, não na água.',2:'Trilhos ficam no chão, não no ar.'},bom:'Trem e metrô andam sobre trilhos: são terrestres.'},
+ {t:'mc',p:'Um veículo que circula <b>em rios</b> é um meio de transporte:',o:['aquático','terrestre','aéreo'],c:0,ex:{1:'O rio é água, não chão.',2:'O rio é água, não ar.'},bom:'No rio = aquático.'},
+ {t:'mc',p:'Um veículo que <b>voa</b> é um meio de transporte:',o:['aéreo','aquático','terrestre'],c:0,ex:{1:'Quem voa não anda na água.',2:'Quem voa não anda no chão.'},bom:'Voa = aéreo.'},
+ {t:'mc',p:'Numa paisagem com um rio largo e muita mata nas margens, qual meio de transporte é o mais adequado?',vis:vis('<span style="font-size:2.6rem;">🏞️</span>'),o:['Barco','Carro','Trem','Bicicleta'],c:0,ex:{1:'O carro não anda sobre a água.',2:'O trem precisa de trilhos.',3:'A bicicleta não anda sobre a água.'},bom:'Para andar pelo rio, o barco é o mais adequado.'},
+ {t:'mc',p:'Descubra: <i>"É rápido e capaz de levar muitas pessoas pelo céu."</i>',o:['Avião','Navio','Metrô','Bicicleta'],c:0,ex:{1:'O navio anda pela água.',2:'O metrô anda sobre trilhos.',3:'A bicicleta anda no chão.'},bom:'É o avião.'},
+ {t:'mc',p:'Descubra: <i>"Anda sobre duas rodas e é muito usada por entregadores."</i>',o:['Moto','Caminhão','Barco','Avião'],c:0,ex:{1:'O caminhão tem muitas rodas.',2:'O barco não tem rodas.',3:'O avião voa.'},bom:'É a moto.'},
+ {t:'mc',p:'Descubra: <i>"Desloca-se sobre trilhos."</i>',o:['Trem','Carro','Canoa','Drone'],c:0,ex:{1:'O carro anda pelas ruas.',2:'A canoa anda na água.',3:'O drone voa.'},bom:'É o trem.'},
+ {t:'mc',p:'O metrô anda sobre trilhos e leva muitos passageiros de uma só vez. Ele é um meio de transporte:',o:['terrestre','aquático','aéreo'],c:0,ex:{1:'O metrô não anda na água.',2:'O metrô não voa.'},bom:'Metrô = terrestre.'},
+ {t:'mc',p:'Cada tipo de transporte é usado conforme:',o:['o caminho, a distância e a necessidade das pessoas','a cor do veículo','o dia da semana','o tamanho da placa'],c:0,ex:{1:'A cor não importa.',2:'O dia da semana não decide o tipo.',3:'Placa não decide o tipo.'},bom:'Caminho, distância e necessidade.'}
+],
+3:[
+ {t:'grp',p:'Cada meio de transporte usa uma <b>via de circulação</b>. Leve cada um para a sua via:',grupos:['🛣️ Ruas e estradas','🛤️ Trilhos','🌊 Rios, lagos e mares','☁️ Vias aéreas'],
+  itens:[{e:'🚗',n:'Carro',g:0,d:'O carro anda por ruas e estradas.'},{e:'🚆',n:'Trem',g:1,d:'O trem anda sobre trilhos.'},{e:'🛳️',n:'Navio',g:2,d:'O navio anda pelo mar.'},
+         {e:'✈️',n:'Avião',g:3,d:'O avião usa as vias aéreas.'},{e:'🚚',n:'Caminhão',g:0,d:'O caminhão anda por ruas e estradas.'},{e:'🚇',n:'Metrô',g:1,d:'O metrô anda sobre trilhos.'},
+         {e:'🛶',n:'Canoa',g:2,d:'A canoa anda pelos rios.'},{e:'🏍️',n:'Moto',g:0,d:'A moto anda por ruas e estradas.'}],
+  bom:'Cada transporte tem a sua via de circulação.'},
+ {t:'mc',p:'Os meios de transporte usam as ___ para se locomover.',o:['vias de circulação','redes sociais','cartas','antenas'],c:0,ex:{1:'Redes sociais são meios de comunicação.',2:'Cartas são meios de comunicação.',3:'Antenas não são caminhos.'},bom:'Ruas, estradas, trilhos, rios e vias aéreas são vias de circulação.'},
+ {t:'mc',p:'Por onde se deslocam os carros, as motos e os caminhões?',o:['Por pistas, ruas e estradas','Sobre trilhos','Por rios e mares','Pelo céu'],c:0,ex:{1:'Trilhos são de trens e metrôs.',2:'Rios e mares são dos barcos.',3:'O céu é dos aviões.'},bom:'Pistas, ruas e estradas.'},
+ {t:'mc',p:'Trens e metrôs se deslocam:',o:['sobre trilhos','por rios','pelo ar','por ciclovias'],c:0,ex:{1:'Rios são dos transportes aquáticos.',2:'O ar é dos aéreos.',3:'Ciclovias são das bicicletas.'},bom:'Trens e metrôs andam sobre trilhos.'},
+ {t:'mc',p:'As vias de circulação dos transportes aquáticos são:',o:['rios, lagos e mares','ruas e estradas','trilhos','ciclovias'],c:0,ex:{1:'Ruas são dos terrestres.',2:'Trilhos são dos trens.',3:'Ciclovias são das bicicletas.'},bom:'Rios, lagos e mares.'},
+ {t:'mc',p:'As vias aéreas são controladas por:',o:['radares','semáforos','faixas de pedestres','lombadas'],c:0,ex:{1:'Semáforos ficam nas ruas.',2:'Faixas ficam no chão das ruas.',3:'Lombadas ficam nas ruas.'},bom:'Os radares controlam as vias aéreas.'},
+ {t:'mc',p:'Para que servem os radares nas vias aéreas?',o:['Ajudam os aviões a manter uma distância segura uns dos outros','Mostram a profundidade da água','Fazem os carros pararem','Orientam os pedestres na faixa'],c:0,ex:{1:'Isso é dos mapas especiais da água.',2:'Isso é do semáforo.',3:'Isso é da sinalização das ruas.'},bom:'Radar = aviões em distância segura.'},
+ {t:'mc',p:'Os mapas especiais das vias aquáticas mostram:',o:['a profundidade da água e os lugares mais seguros para os barcos','os trilhos dos trens','as placas de trânsito','as ciclovias'],c:0,ex:{1:'Trilhos são de trens.',2:'Placas ficam nas ruas.',3:'Ciclovias ficam nas ruas.'},bom:'Os mapas ajudam os barcos a andar com segurança.'},
+ {t:'mc',p:'Faixas de segurança, ciclovias e sinais de trânsito orientam:',o:['pedestres, motoristas e ciclistas','só os aviões','só os navios','ninguém'],c:0,ex:{1:'Eles ficam nas ruas, não no céu.',2:'Eles ficam nas ruas, não na água.',3:'Eles orientam todo mundo que usa a rua!'},bom:'Pedestres, motoristas e ciclistas.'},
+ {t:'mc',p:'Cada via de circulação tem regras próprias. Um exemplo de regra é:',o:['o limite de velocidade','a cor do carro','o nome do motorista','a música do rádio'],c:0,ex:{1:'A cor do carro não é regra da via.',2:'O nome não é regra da via.',3:'A música não é regra da via.'},bom:'Limite de velocidade e sentido de direção são regras.'},
+ {t:'mc',p:'Por que as vias de circulação precisam ser organizadas?',o:['Para os deslocamentos acontecerem de forma segura','Para os carros ficarem mais bonitos','Para ninguém poder passar','Para os aviões andarem nas ruas'],c:0,ex:{1:'Beleza não é o motivo.',2:'As vias são para passar, com segurança.',3:'Aviões usam as vias aéreas.'},bom:'Organizar = deslocamentos seguros.'}
+],
+4:[
+ {t:'mc',p:'No semáforo dos motoristas, a luz <b>vermelha</b> quer dizer:',vis:vis(semaforo('r',false,90)),o:['Pare','Siga','Atenção!'],c:0,ex:{1:'Siga é a luz verde.',2:'Atenção! é a luz amarela.'},bom:'Vermelho = Pare.'},
+ {t:'mc',p:'E a luz <b>amarela</b> quer dizer:',vis:vis(semaforo('y',false,90)),o:['Atenção!','Pare','Siga'],c:0,ex:{1:'Pare é a luz vermelha.',2:'Siga é a luz verde.'},bom:'Amarelo = Atenção!'},
+ {t:'mc',p:'E a luz <b>verde</b> quer dizer:',vis:vis(semaforo('g',false,90)),o:['Siga','Atenção!','Pare'],c:0,ex:{1:'Atenção! é a luz amarela.',2:'Pare é a luz vermelha.'},bom:'Verde = Siga.'},
+ {t:'mc',p:'No semáforo dos <b>pedestres</b>, o bonequinho <b>verde</b> quer dizer:',vis:vis(semaforo('g',true,80)),o:['Atravesse','Espere'],c:0,ex:{1:'Espere é o vermelho.'},bom:'Verde = Atravesse.'},
+ {t:'mc',p:'E a luz <b>vermelha</b> do semáforo dos pedestres quer dizer:',vis:vis(semaforo('r',true,80)),o:['Espere','Atravesse'],c:0,ex:{1:'Atravesse é o verde.'},bom:'Vermelho = Espere.'},
+ {t:'mc',p:'Quantas cores tem o semáforo dos motoristas?',o:['3','2','4','5'],c:0,ex:{1:'2 luzes tem o semáforo dos pedestres.',2:'Conte de novo: vermelho, amarelo e verde.',3:'Conte de novo: vermelho, amarelo e verde.'},bom:'Vermelho, amarelo e verde: 3 cores.'},
+ {t:'mc',p:'O que esta placa quer dizer?',vis:vis(placa('lombada',110)),o:['Lombada','Semáforo à frente','Trânsito de pedestres','Proibido virar à direita'],c:0,ex:{1:'A placa do semáforo mostra um semáforo.',2:'A placa de pedestres mostra uma pessoa andando.',3:'Essa placa é redonda com uma seta.'},bom:'O desenho mostra o "morrinho" da lombada.'},
+ {t:'mc',p:'O que esta placa quer dizer?',vis:vis(placa('vel50',110)),o:['Velocidade máxima de 50 km/h','Circulação exclusiva de ônibus','Proibido parar e estacionar','Lombada'],c:0,ex:{1:'A placa do ônibus tem um ônibus.',2:'Essa placa é azul com um X vermelho.',3:'A lombada é amarela.'},bom:'O número 50 é a velocidade máxima.'},
+ {t:'mc',p:'O que esta placa quer dizer?',vis:vis(placa('onibus',110)),o:['Circulação exclusiva de ônibus','Velocidade máxima de 50 km/h','Trânsito de pedestres','Semáforo à frente'],c:0,ex:{1:'Essa tem o número 50.',2:'Essa é amarela, com uma pessoa.',3:'Essa é amarela, com um semáforo.'},bom:'Só ônibus podem circular ali.'},
+ {t:'mc',p:'O que esta placa quer dizer?',vis:vis(placa('virar',110)),o:['Proibido virar à direita','Proibido parar e estacionar','Lombada','Velocidade máxima de 50 km/h'],c:0,ex:{1:'Essa é azul com um X.',2:'A lombada é amarela.',3:'Essa tem o número 50.'},bom:'A seta para a direita está riscada: é proibido virar à direita.'},
+ {t:'mc',p:'O que esta placa quer dizer?',vis:vis(placa('pedestres',110)),o:['Trânsito de pedestres','Semáforo à frente','Circulação exclusiva de ônibus','Proibido parar e estacionar'],c:0,ex:{1:'Essa mostra um semáforo.',2:'Essa é redonda, com um ônibus.',3:'Essa é azul com um X.'},bom:'A pessoa andando avisa: cuidado, pedestres!'},
+ {t:'mc',p:'Na rua, os <b>pedestres</b> devem:',o:['andar na calçada e atravessar na faixa','andar no meio da rua','atravessar correndo em qualquer lugar','andar na ciclovia'],c:0,ex:{1:'O meio da rua é perigoso.',2:'Atravessa-se na faixa, com calma.',3:'A ciclovia é das bicicletas.'},bom:'Calçada e faixa.'},
+ {t:'mc',p:'Os <b>ciclistas</b> precisam:',o:['usar capacete e andar nas ciclovias','andar na calçada sem capacete','andar no meio dos carros sem cuidado','andar na faixa de pedestres'],c:0,ex:{1:'O capacete protege a cabeça.',2:'Isso é perigoso.',3:'A faixa é dos pedestres.'},bom:'Capacete e ciclovia.'},
+ {t:'mc',p:'Os <b>motoristas</b> devem respeitar:',o:['a velocidade, as placas e o semáforo','só a cor do carro','só a música do rádio','nada'],c:0,ex:{1:'A cor não é regra.',2:'A música não é regra.',3:'Todo motorista tem regras!'},bom:'Velocidade, placas e semáforo.'},
+ {t:'mc',p:'A segurança no trânsito depende:',o:['da atenção e do cuidado de todos','só dos motoristas','só dos semáforos','só dos ciclistas'],c:0,ex:{1:'Pedestres e ciclistas também cuidam.',2:'As pessoas precisam seguir os sinais.',3:'Pedestres e motoristas também cuidam.'},bom:'Todos cuidam: assim as vias ficam mais seguras.'}
+],
+5:[
+ {t:'grp',p:'Separe: o meio de comunicação é <b>individual</b> (fala com uma pessoa) ou <b>de massa</b> (chega a muitas pessoas ao mesmo tempo)?',grupos:['👤 Individual','👥 De massa'],
+  itens:[{e:'📺',n:'Televisão',g:1,d:'A televisão chega a muitas pessoas ao mesmo tempo.'},{e:'💬',n:'Troca de mensagens',g:0,d:'A mensagem vai direto para uma pessoa.'},
+         {e:'📻',n:'Rádio',g:1,d:'O rádio chega a muitas pessoas ao mesmo tempo.'},{e:'✉️',n:'Carta',g:0,d:'A carta vai para uma pessoa.'},
+         {e:'📰',n:'Jornal impresso',g:1,d:'O jornal é lido por muitas pessoas.'},{e:'🎥',n:'Chamada de vídeo',g:0,d:'Na chamada, você fala direto com uma pessoa.'},
+         {e:'🌐',n:'Site de notícias',g:1,d:'O site de notícias chega a muitas pessoas.'},{e:'👍',n:'Rede social',g:1,d:'A rede social chega a muitas pessoas ao mesmo tempo.'},
+         {e:'📝',n:'Bilhete',g:0,d:'O bilhete é para uma pessoa.'},{e:'☎️',n:'Telefonema',g:0,d:'No telefonema, você fala direto com uma pessoa.'}],
+  bom:'Individual = uma pessoa · Massa = muitas pessoas ao mesmo tempo.'},
+ {t:'mc',p:'Os meios de comunicação <b>individuais</b> servem para:',o:['falar diretamente com uma pessoa','falar com muitas pessoas ao mesmo tempo','levar cargas','andar pelas ruas'],c:0,ex:{1:'Isso é a comunicação de massa.',2:'Isso é dos meios de transporte.',3:'Isso é dos meios de transporte.'},bom:'Individual = uma pessoa.'},
+ {t:'mc',p:'Comunicação de <b>massa</b> é:',o:['transmitir informações para muitas pessoas ao mesmo tempo','conversar só com um amigo','escrever um bilhete','mandar uma carta para a avó'],c:0,ex:{1:'Isso é individual.',2:'O bilhete é individual.',3:'A carta é individual.'},bom:'Massa = muitas pessoas ao mesmo tempo.'},
+ {t:'mc',p:'Qual destes é um meio de comunicação de <b>massa</b>?',o:['Televisão','Carta','Bilhete','Telefonema'],c:0,ex:{1:'A carta é individual.',2:'O bilhete é individual.',3:'O telefonema é individual.'},bom:'A televisão chega a muitas pessoas.'},
+ {t:'mc',p:'Qual destes é um meio de comunicação <b>individual</b>?',o:['Carta','Rádio','Jornal','Site de notícias'],c:0,ex:{1:'O rádio é de massa.',2:'O jornal é de massa.',3:'O site de notícias é de massa.'},bom:'A carta vai para uma pessoa.'},
+ {t:'mc',p:'A televisão pode transmitir "ao vivo". Isso quer dizer que ela mostra um acontecimento:',o:['no mesmo instante em que ele acontece','só no dia seguinte','só por carta','só para uma pessoa'],c:0,ex:{1:'Ao vivo é na hora!',2:'A TV não manda cartas.',3:'A TV é de massa: chega a muita gente.'},bom:'Ao vivo = na hora, para diferentes lugares do mundo.'},
+ {t:'duo',p:'Uma menina escreve uma carta. Verdadeiro ou falso?<div class="frase">"A carta pode ser enviada pelo correio."</div>',o:VF,c:0,bom:'Verdadeiro: a carta pode ir pelo correio.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"A carta é um meio de comunicação de massa."</div>',o:VF,c:1,bom:'Falso: a carta é individual, vai para uma pessoa.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"A carta é o meio de comunicação mais rápido."</div>',o:VF,c:1,bom:'Falso: a carta demora mais para chegar. Hoje as mensagens chegam quase na hora.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"Tanto uma carta quanto uma mensagem de celular podem levar a mesma mensagem para alguém que está longe."</div>',o:VF,c:0,bom:'Verdadeiro: as duas levam a mensagem à distância.'},
+ {t:'mc',p:'<b>Antigamente</b>, cartas e telegramas:',o:['eram muito usados e demoravam mais para chegar','chegavam na mesma hora','não existiam','eram meios de transporte'],c:0,ex:{1:'Eles demoravam mais.',2:'Eram muito usados!',3:'São meios de comunicação.'},bom:'Antigamente as mensagens demoravam mais.'},
+ {t:'mc',p:'<b>Hoje</b>, mensagens, fotos e vídeos são enviados:',o:['quase na hora, por celulares e computadores','só por carta','só pelo rádio','de navio'],c:0,ex:{1:'Hoje temos meios bem mais rápidos.',2:'O rádio não envia nossas fotos.',3:'Navio é meio de transporte.'},bom:'Celulares e computadores mandam tudo quase na hora.'}
+],
+6:[
+ {t:'mc',p:'Com a internet, podemos:',o:['conversar em tempo real, fazer chamadas de vídeo e acessar informações','só mandar cartas pelo correio','só andar de ônibus','só ouvir rádio'],c:0,ex:{1:'Carta vai pelo correio, não pela internet.',2:'Ônibus é meio de transporte.',3:'A internet faz muito mais coisas.'},bom:'A internet aproxima as pessoas e traz informações.'},
+ {t:'mc',p:'A tecnologia ___ o jeito como nos comunicamos.',o:['transformou','não mudou','proibiu','apagou'],c:0,ex:{1:'Mudou muito, sim!',2:'Ela não proibiu: criou novas formas.',3:'Ela criou novas formas de comunicação.'},bom:'A tecnologia transformou a comunicação.'},
+ {t:'mc',p:'As crianças devem usar a internet:',o:['acompanhadas pelos pais ou por adultos responsáveis','sozinhas e escondidas','a noite inteira','com qualquer pessoa desconhecida'],c:0,ex:{1:'Criança usa a internet com um adulto por perto.',2:'Não é seguro.',3:'Desconhecidos não são adultos responsáveis.'},bom:'Sempre com um adulto responsável.'},
+ {t:'mc',p:'Qual atitude é <b>segura</b> na internet?',o:['Não publicar fotos que mostram a intimidade da família','Publicar fotos de tudo o que a família faz','Baixar jogos de qualquer site','Deixar o computador ligado sem usar'],c:0,ex:{1:'Isso expõe a família.',2:'Sites desconhecidos podem ser perigosos.',3:'Quando não for usar, desligue.'},bom:'Proteger a intimidade é um cuidado importante.'},
+ {t:'mc',p:'Você quer baixar um jogo. O certo é:',o:['baixar só de site conhecido e com um adulto','baixar de qualquer site, sozinho','pedir para um desconhecido','baixar escondido'],c:0,ex:{1:'Evite sites que você não conhece.',2:'Desconhecido não é seguro.',3:'Faça isso com um adulto.'},bom:'Site conhecido + adulto junto.'},
+ {t:'mc',p:'Antes de desligar o computador, é preciso:',o:['salvar e fechar os arquivos','apagar tudo','deixar tudo aberto','publicar uma foto'],c:0,ex:{1:'Apagar não é preciso.',2:'Feche os arquivos antes.',3:'Isso não tem a ver com desligar.'},bom:'Salve, feche e desligue.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"Pelo jornal e pela televisão podemos receber notícias de qualquer lugar do mundo."</div>',o:VF,c:0,bom:'Verdadeiro.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"A televisão não consegue mostrar as informações no mesmo instante em que os fatos acontecem."</div>',o:VF,c:1,bom:'Falso: a televisão transmite "ao vivo", na hora.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"Pela internet podemos fazer ligações, trocar mensagens e acessar muitas informações."</div>',o:VF,c:0,bom:'Verdadeiro.'},
+ {t:'duo',p:'Verdadeiro ou falso?<div class="frase">"As pessoas usam os meios de comunicação só para mandar mensagens."</div>',o:VF,c:1,bom:'Falso: também recebemos notícias, fazemos pesquisas e acessamos informações.'},
+ {t:'esc',id:'esc1',tit:'✏️ Carta 1 — O meu meio de transporte',
+  enun:'Escreva qual meio de transporte você mais usa no dia a dia, para onde você vai com ele e de que tipo ele é: terrestre, aéreo ou aquático.',
+  modelo:'Eu vou para a escola de carro. O carro é um meio de transporte terrestre, porque anda sobre o solo, pelas ruas.',
+  chk:['Escrevi o nome de um meio de transporte?','Disse se ele é terrestre, aéreo ou aquático?','O tipo que escolhi está certo para esse transporte?']},
+ {t:'esc',id:'esc2',tit:'✏️ Carta 2 — Falando com quem mora longe',
+  enun:'Conte como você costuma se comunicar com alguém que mora longe ou está distante. Diga se esse meio de comunicação é individual ou de massa.',
+  modelo:'Eu faço chamada de vídeo pelo celular com a minha avó, que mora em outra cidade. É um meio de comunicação individual, porque falo direto com uma pessoa.',
+  chk:['Escrevi o nome de um meio de comunicação?','Disse se ele é individual ou de massa?','Expliquei por quê (uma pessoa ou muitas pessoas)?']}
+]
+};
+
+/* --- Grande Entrega (desafio final, 10 questões) --- */
+var FINAL=[
+ {p:'Quais meios de transporte são <b>aéreos</b>?',o:['avião, helicóptero e drone','carro, ônibus e trem','barco, navio e canoa','bicicleta e moto'],c:0,ex:{1:'Esses andam no chão: são terrestres.',2:'Esses andam na água: são aquáticos.',3:'Essas andam no chão: são terrestres.'}},
+ {p:'O metrô é um meio de transporte:',o:['terrestre','aquático','aéreo'],c:0,ex:{1:'O metrô não anda na água.',2:'O metrô não voa.'}},
+ {p:'Trens e metrôs se deslocam:',o:['sobre trilhos','por rios e mares','pelo ar','por ciclovias'],c:0,ex:{1:'Rios e mares são dos aquáticos.',2:'O ar é dos aéreos.',3:'Ciclovias são das bicicletas.'}},
+ {p:'No semáforo dos motoristas, a luz <b>amarela</b> quer dizer:',o:['Atenção!','Pare','Siga'],c:0,ex:{1:'Pare é a vermelha.',2:'Siga é a verde.'}},
+ {p:'O que esta placa quer dizer?'+vis(placa('lombada',100)),o:['Lombada','Semáforo à frente','Trânsito de pedestres','Velocidade máxima de 50 km/h'],c:0,ex:{1:'Essa mostra um semáforo.',2:'Essa mostra uma pessoa.',3:'Essa tem o número 50.'}},
+ {p:'Os pedestres devem:',o:['andar na calçada e atravessar na faixa','andar no meio da rua','andar na ciclovia','atravessar em qualquer lugar'],c:0,ex:{1:'O meio da rua é perigoso.',2:'A ciclovia é das bicicletas.',3:'Atravessa-se na faixa.'}},
+ {p:'Qual é um meio de comunicação de <b>massa</b>?',o:['rádio','carta','bilhete','telefonema'],c:0,ex:{1:'A carta é individual.',2:'O bilhete é individual.',3:'O telefonema é individual.'}},
+ {p:'Os meios de transporte ___ o tempo de deslocamento.',o:['encurtam','aumentam','não mudam'],c:0,ex:{1:'Eles deixam a viagem mais rápida.',2:'Eles mudam: deixam a viagem mais curta.'}},
+ {p:'Um cuidado ao usar a internet é:',o:['usar acompanhado pelos pais ou por um adulto responsável','baixar jogos de qualquer site','publicar fotos da intimidade da família','conversar com desconhecidos'],c:0,ex:{1:'Evite sites que você não conhece.',2:'Isso expõe a família.',3:'Isso não é seguro.'}},
+ {p:'Num lugar com um rio largo, o meio de transporte mais adequado para se deslocar é o:',o:['barco','carro','trem','avião'],c:0,ex:{1:'O carro não anda na água.',2:'O trem precisa de trilhos.',3:'O avião voa; para andar pelo rio, o barco é o certo.'}}
+];
+var SEMENTE="cp7"; /* escolhida para espalhar a resposta certa entre A, B, C e D */
+
+/* =========================================================
+   ARMAZENAMENTO (à prova de bloqueio)
+   ========================================================= */
+var KEY='correio_pipo_2ano_v1';
+var TKEY='correio_pipo_2ano_trilha_v1';
+var MEM={};
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return MEM[k]||null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){ MEM[k]=v; } }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} delete MEM[k]; }
+function letras(){ var L='ABCDEFGHJKLMNPQRSTUVWXYZ'; return L[Math.floor(Math.random()*L.length)]+L[Math.floor(Math.random()*L.length)]; }
+function novoEstado(){
+  return { fases:{}, escrita:{}, mural:{concluido:false,maxPct:0},
+           finalScore:null, finalCode:null, finalDet:null, finalConc:false, finalEm:null,
+           codeLetters:null, quando:null };
+}
+function arrumar(o){
+  if(!o.fases)o.fases={}; if(!o.escrita)o.escrita={};
+  if(!o.mural)o.mural={concluido:false,maxPct:0};
+  if(!o.codeLetters)o.codeLetters=letras();
+  return o;
+}
+var S=novoEstado(), T={liberadoPelosPais:false,liberadoEm:null};
+(function carregar(){
+  var raw=lsGet(KEY);
+  if(raw){ try{ var o=JSON.parse(raw); if(o&&typeof o==='object') S=o; }catch(e){} }
+  arrumar(S);
+  var rt=lsGet(TKEY);
+  if(rt){ try{ var t=JSON.parse(rt); if(t&&typeof t==='object') T=t; }catch(e){} }
+})();
+function save(){
+  S.quando=new Date().toLocaleString('pt-BR');
+  lsSet(KEY,JSON.stringify(S));
+  var el=document.getElementById('saveInfo');
+  if(el) el.textContent='Progresso salvo automaticamente · '+S.quando;
+}
+function saveT(){ lsSet(TKEY,JSON.stringify(T)); }
+
+/* =========================================================
+   UTILIDADES (sem áudio)
+   ========================================================= */
+function modal(title,msg,onOk,withCancel){
+  document.getElementById('mdTitle').innerHTML=title;
+  document.getElementById('mdMsg').innerHTML=msg;
+  var m=document.getElementById('mask'), ok=document.getElementById('mdOk'), ca=document.getElementById('mdCancel');
+  ca.style.display=withCancel?'block':'none';
+  ok.onclick=function(){ m.classList.remove('on'); if(onOk)onOk(); };
+  ca.onclick=function(){ m.classList.remove('on'); };
+  m.classList.add('on');
+}
+function confetti(n){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var cores=['#2E6FD8','#F7C531','#E2483D','#2FA36B','#FFFFFF'], i;
+  for(i=0;i<(n||30);i++){ (function(i){
+    var d=document.createElement('div'); d.className='conf';
+    d.style.left=(Math.random()*100)+'vw'; d.style.background=cores[i%cores.length];
+    d.style.animation='fall '+(1.6+Math.random()*1.2)+'s linear forwards'; d.style.animationDelay=(Math.random()*.5)+'s';
+    document.body.appendChild(d); setTimeout(function(){ if(d.parentNode)d.parentNode.removeChild(d); },3600);
+  })(i); }
+}
+function hashStr(s){ var h=5381,i; for(i=0;i<s.length;i++){ h=((h*33)+s.charCodeAt(i))>>>0; } return h; }
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0;
+  var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function shuffleSeeded(arr,key){
+  var r=mulberry32(hashStr(key)), a=arr.slice(), i,j,t;
+  for(i=a.length-1;i>0;i--){ j=Math.floor(r()*(i+1)); t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function dataBR(iso){ try{ return new Date(iso).toLocaleString('pt-BR'); }catch(e){ return iso; } }
+
+/* =========================================================
+   TRILHA COM CADEADOS
+   etapas 0..5 = entregas 1..6 · 6 = Mural · 7 = Grande Entrega
+   ========================================================= */
+var ETAPAS=[
+ {nome:TITULOS[1]},{nome:TITULOS[2]},{nome:TITULOS[3]},{nome:TITULOS[4]},{nome:TITULOS[5]},{nome:TITULOS[6]},
+ {nome:'📋 Mural do Correio'},{nome:'🏆 Grande Entrega'}
+];
+function feita(i){
+  if(i<=5){ var f=S.fases[i+1]; return !!(f&&f.concluido); }
+  if(i===6) return !!(S.mural&&S.mural.concluido);
+  return !!S.finalConc;
+}
+function quandoFeita(i){
+  if(i<=5){ var f=S.fases[i+1]; return f?f.concluidoEm:null; }
+  if(i===6) return S.mural.concluidoEm||null;
+  return S.finalEm||null;
+}
+function aberta(i){ return i===0 || T.liberadoPelosPais || feita(i) || feita(i-1); }
+function entregasFaltando(){ var n=0,i; for(i=0;i<=5;i++) if(!feita(i)) n++; return n; }
+function fraseTrava(i){
+  if(i>=1&&i<=5) return '🔒 Destrava quando você concluir a entrega '+i+' — '+TITULOS[i]+'.';
+  if(i===6) return '🔒 Destrava quando você concluir as 6 entregas (faltam '+entregasFaltando()+').';
+  return '🔒 Destrava quando você ler o Mural do Correio até o fim e clicar em "✅ Li o mural até o fim".';
+}
+function openStep(i){
+  if(!aberta(i)){ modal('🔒 Esta etapa ainda está trancada',fraseTrava(i).replace('🔒 ','')); return; }
+  if(i<=5) startP(i+1);
+  else if(i===6) abrirMural();
+  else startFinal();
+}
+
+function go(id){
+  var all=document.querySelectorAll('.screen'), i;
+  for(i=0;i<all.length;i++) all[i].classList.remove('on');
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0,0);
+  if(id==='scr-menu') refreshMenu();
+  if(id==='scr-mural') checarRolagem();
+}
+
+function refreshMenu(){
+  var i, n=0, h='', primeiroNovo=-1;
+  for(i=1;i<=6;i++){
+    var on=feita(i-1); if(on) n++;
+    document.getElementById('ov'+i).classList.toggle('on',on);
+  }
+  document.getElementById('trayLabel').textContent = n===0 ? 'Seus selos (nenhum ainda)' : ('Seus selos: '+n+' de 6');
+  for(i=1;i<ETAPAS.length;i++){ if(aberta(i)&&!feita(i)&&!T.liberadoPelosPais){ primeiroNovo=i; break; } }
+  for(i=0;i<ETAPAS.length;i++){
+    var ab=aberta(i), fe=feita(i), cls='btn';
+    if(i===6) cls+=' green'; if(i===7) cls+=' yellow';
+    if(!ab) cls='btn locked';
+    if(i===primeiroNovo) cls+=' glow';
+    var rotulo=(i<=5?(i+1)+'. ':'')+ETAPAS[i].nome;
+    var selo= fe ? '<span class="selo ok">✅ Concluído</span>' : (i===primeiroNovo ? '<span class="selo novo">✨ Novo destravado</span>' : '');
+    h+='<button class="'+cls+'" id="mb'+i+'" onclick="openStep('+i+')">'+(ab?'':'🔒 ')+rotulo+selo+'</button>';
+    var desc = i<=5 ? DESC[i+1] : (i===6 ? 'O resumão para ler com um adulto na véspera.' : '10 questões misturando tudo. Gera o código para os pais.');
+    h+='<p class="menu-desc'+(ab?'':' lock')+'" id="md'+i+'">'+(ab?desc:fraseTrava(i))+'</p>';
+  }
+  document.getElementById('menuList').innerHTML=h;
+  document.getElementById('paisSelo').innerHTML = T.liberadoPelosPais
+    ? '<div class="paisbox">🔓 Trilha liberada pelos pais — todos os materiais estão abertos. <button class="btn ghost small" style="margin:6px 0 0;" onclick="trancarDeNovo()">🔒 Trancar de novo</button></div>' : '';
+  if(S.quando) document.getElementById('saveInfo').textContent='Progresso salvo automaticamente · '+S.quando;
+}
+
+/* =========================================================
+   PÍLULAS
+   ========================================================= */
+var P={fase:1,idx:0};
+function startP(p){
+  P={fase:p,idx:0};
+  document.getElementById('pillTitle').textContent=PILLS[p].t;
+  renderPill(); go('scr-pill');
+}
+function renderPill(){
+  var lista=PILLS[P.fase].p, it=lista[P.idx], i, h='';
+  h+='<div class="pill-emoji">'+it.e+'</div><div class="pill-text">'+it.x+'</div>';
+  if(it.y) h+='<div class="pill-extra">'+it.y+'</div>';
+  document.getElementById('pillBox').innerHTML=h;
+  var d=''; for(i=0;i<lista.length;i++) d+='<i class="'+(i<=P.idx?'on':'')+'"></i>';
+  document.getElementById('pillDots').innerHTML=d;
+  var bt=document.getElementById('pillNext');
+  bt.textContent=(P.idx===lista.length-1)?'Agora vamos treinar! 🕊️':'Entendi! Próximo ➡️';
+  bt.onclick=function(){ if(P.idx<lista.length-1){ P.idx++; renderPill(); window.scrollTo(0,0); } else startGame(P.fase); };
+}
+
+/* =========================================================
+   MOTOR DOS MINIJOGOS
+   ========================================================= */
+var G={};
+function area(){ return document.getElementById('gameArea'); }
+function fbEl(){ return document.getElementById('gameFb'); }
+function nextBtn(){ return document.getElementById('gameNext'); }
+function setCount(t){ document.getElementById('gameCount').textContent=t; }
+function showFb(ok,html){ var f=fbEl(); f.className='fb on '+(ok?'good':'bad'); f.innerHTML=html; }
+function clearFb(){ var f=fbEl(); f.className='fb'; f.innerHTML=''; }
+
+function ordemOpcoes(q,key){
+  var idx=q.o.map(function(_,i){return i;});
+  return q.fixo ? idx : shuffleSeeded(idx,key);
+}
+function renderMC(q,key,onPick){
+  var ordem=ordemOpcoes(q,key), h='', k;
+  h+='<div class="q-text">'+q.p+'</div>';
+  if(q.vis) h+=q.vis;
+  if(q.t==='duo'){
+    h+='<div class="duo">';
+    for(k=0;k<q.o.length;k++) h+='<button class="opt" data-oi="'+k+'">'+q.o[k]+'</button>';
+    h+='</div>';
+  } else {
+    for(k=0;k<ordem.length;k++) h+='<button class="opt" data-oi="'+ordem[k]+'">'+q.o[ordem[k]]+'</button>';
+  }
+  area().innerHTML=h;
+  var btns=area().querySelectorAll('.opt'), i;
+  for(i=0;i<btns.length;i++) btns[i].addEventListener('click',function(){ onPick(this,parseInt(this.getAttribute('data-oi'),10)); });
+}
+function markMC(btn,oi,q){
+  var btns=area().querySelectorAll('.opt'), i, acertou=(oi===q.c);
+  for(i=0;i<btns.length;i++){
+    var idx=parseInt(btns[i].getAttribute('data-oi'),10); btns[i].disabled=true;
+    if(idx===q.c) btns[i].classList.add('ok'); else if(btns[i]===btn) btns[i].classList.add('no');
+  }
+  if(acertou) showFb(true,'✅ <b>Boa! É isso mesmo.</b> '+(q.bom||''));
+  else showFb(false,'💛 <b>Quase! Vamos aprender juntos.</b><br>'+((q.ex&&q.ex[oi])?q.ex[oi]+'<br>':'')+
+    'A resposta certa é <b>'+q.o[q.c]+'</b>. '+(q.bom||''));
+  return acertou;
+}
+
+function startGame(p){
+  for(var k in S.escrita){ if(S.escrita[k]){ S.escrita[k].contado=false; S.escrita[k].pontuado=false; } }
+  G={p:p, idx:0, acertos:0, total:0};
+  document.getElementById('gameTitle').textContent=TITULOS[p]+' — hora de treinar';
+  go('scr-game'); g_render();
+}
+function g_render(){
+  clearFb(); nextBtn().style.display='none';
+  var lista=JOGO[G.p], it=lista[G.idx];
+  setCount('Desafio '+(G.idx+1)+' de '+lista.length+' · ⭐ '+G.acertos);
+  if(it.t==='grp') return g_grp(it);
+  if(it.t==='esc') return g_esc(it);
+  renderMC(it,'p'+G.p+'q'+G.idx+SEMENTE,function(btn,oi){
+    if(markMC(btn,oi,it)) G.acertos++;
+    G.total++; g_next();
+  });
+}
+function g_next(){
+  var lista=JOGO[G.p];
+  nextBtn().style.display='block';
+  nextBtn().textContent=(G.idx===lista.length-1)?'Terminar a entrega ✉️':'Continuar ➡️';
+  nextBtn().onclick=function(){
+    if(G.idx<lista.length-1){ G.idx++; g_render(); window.scrollTo(0,0); }
+    else winFase(G.p,G.acertos,G.total);
+  };
+}
+
+/* separar em grupos: um item por vez, a criança toca no grupo certo */
+function g_grp(it){
+  var h='', k;
+  G.grpOrdem=shuffleSeeded(it.itens.map(function(_,i){return i;}),'grp'+G.p+'_'+G.idx);
+  G.grpPos=0; G.grpErros=0; G.grpItem=it;
+  h+='<div class="q-text">'+it.p+'</div><div class="grp-card" id="grpCard"></div><div class="grp-btns">';
+  for(k=0;k<it.grupos.length;k++) h+='<button class="opt grpb" data-g="'+k+'">'+it.grupos[k]+'</button>';
+  h+='</div><div class="baskets">';
+  for(k=0;k<it.grupos.length;k++) h+='<div class="basket"><b>'+it.grupos[k]+'</b><div id="bk'+k+'"></div></div>';
+  h+='</div>';
+  area().innerHTML=h;
+  var bts=area().querySelectorAll('.grpb'), i;
+  for(i=0;i<bts.length;i++) bts[i].addEventListener('click',function(){ grpPick(this,parseInt(this.getAttribute('data-g'),10)); });
+  grpShow();
+}
+function grpShow(){
+  var it=G.grpItem, x=it.itens[G.grpOrdem[G.grpPos]];
+  document.getElementById('grpCard').innerHTML='<div class="pill-emoji">'+x.e+'</div><div class="pill-text">'+x.n+'</div><div class="menu-desc" style="margin:4px 0 0;">'+(G.grpPos+1)+' de '+it.itens.length+'</div>';
+}
+function grpPick(btn,k){
+  var it=G.grpItem; if(G.grpPos>=it.itens.length) return;
+  var x=it.itens[G.grpOrdem[G.grpPos]];
+  if(k===x.g){
+    document.getElementById('bk'+k).innerHTML+='<span class="chip">'+x.e+' '+x.n+'</span>';
+    G.grpPos++; clearFb();
+    if(G.grpPos===it.itens.length){
+      var bts=area().querySelectorAll('.grpb'), i; for(i=0;i<bts.length;i++) bts[i].disabled=true;
+      document.getElementById('grpCard').innerHTML='<div class="pill-emoji">📦</div><div class="pill-text">Tudo separado!</div>';
+      G.total++;
+      if(G.grpErros===0){ G.acertos++; showFb(true,'✅ <b>Perfeito, tudo no lugar certo de primeira!</b> '+it.bom); }
+      else showFb(true,'✅ <b>Completou!</b> Você errou '+G.grpErros+' vez(es) no caminho. '+it.bom);
+      g_next();
+    } else grpShow();
+  } else {
+    G.grpErros++;
+    btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
+    setTimeout(function(){ btn.classList.remove('shake'); },400);
+    showFb(false,'💛 <b>Quase!</b> '+x.d+' Tente outro grupo.');
+  }
+}
+
+/* escrita com anticópia e autoavaliação guiada */
+function norm(s){
+  return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+function palavras(s){ var n=norm(s); return n?n.split(' '):[]; }
+function ehTranscricao(resp,fonte){
+  var a=palavras(resp), b=palavras(fonte), i, j;
+  if(a.length<4) return false;
+  var maiorSeq=0, emSeq=0, marcado=[];
+  for(i=0;i<a.length;i++) marcado.push(false);
+  for(i=0;i<a.length;i++){
+    for(j=0;j<b.length;j++){
+      var k=0; while(i+k<a.length && j+k<b.length && a[i+k]===b[j+k]) k++;
+      if(k>maiorSeq) maiorSeq=k;
+      if(k>=5){ var z; for(z=0;z<k;z++) marcado[i+z]=true; }
+    }
+  }
+  for(i=0;i<marcado.length;i++) if(marcado[i]) emSeq++;
+  return (maiorSeq>=8) || (emSeq/a.length>0.60);
+}
+function g_esc(it){
+  var sv=S.escrita[it.id]||{}, h='';
+  h+='<div class="wbox'+(sv.transcrita?' red':'')+'" id="wb"><h4>'+it.tit+'</h4>';
+  h+='<p style="font-weight:700;font-size:.97rem;">'+it.enun+'</p>';
+  h+='<textarea id="wtxt" placeholder="Escreva aqui com as suas palavras...">'+esc(sv.resp||'')+'</textarea>';
+  h+='<div id="wavisos"></div><button class="btn green small" id="wchk" onclick="escChk()">Conferir ✅</button><div id="wdepois"></div></div>';
+  area().innerHTML=h; G.tentativa=0; G.escItem=it;
+}
+function escChk(){
+  var it=G.escItem, txt=document.getElementById('wtxt').value.trim();
+  if(txt.length<15){ document.getElementById('wavisos').innerHTML='<div class="warn">✏️ Escreva um pouquinho mais: uma ou duas frases contando do seu jeito.</div>'; return; }
+  var copiou=ehTranscricao(txt,it.enun);
+  G.tentativa=(G.tentativa||0)+1;
+  if(copiou && G.tentativa===1){
+    S.escrita[it.id]=S.escrita[it.id]||{}; S.escrita[it.id].tentou=txt; save();
+    document.getElementById('wavisos').innerHTML='<div class="warn">🕊️ Boa parte da sua resposta está igualzinha ao enunciado.<br>Tente reescrever <b>com as suas palavras</b>: conte do SEU jeito, como se fosse para um amigo, sem olhar o texto. Pode ficar curtinho e simples, o que vale é ser <b>SEU</b>.</div>';
+    document.getElementById('wtxt').focus(); return;
+  }
+  var reg=S.escrita[it.id]||{}; reg.resp=txt; reg.transcrita=!!copiou; reg.chk=reg.chk||{}; reg.quando=new Date().toISOString();
+  S.escrita[it.id]=reg; save();
+  document.getElementById('wchk').disabled=true;
+  document.getElementById('wavisos').innerHTML = copiou ? '<div class="redflag">🔴 Esta resposta ficou marcada para revisar: continua muito parecida com o enunciado. Se reescrever com as suas palavras, a marca some.</div>' : '';
+  document.getElementById('wb').classList.toggle('red',!!copiou);
+  var h='<div class="modelo"><b>Resposta modelo (um jeito possível):</b><br>'+it.modelo+'</div><div class="chk"><p style="font-weight:900;">Agora confira a SUA resposta:</p>', i;
+  for(i=0;i<it.chk.length;i++){
+    h+='<p>'+it.chk[i]+'</p><div class="yn"><button id="y'+i+'" onclick="escMarca('+i+',1)">Sim 👍</button><button id="n'+i+'" onclick="escMarca('+i+',0)">Ainda não 🤔</button></div>';
+  }
+  h+='</div><div id="chkStatus"></div><button class="btn ghost small" onclick="escReescrever()">✏️ Quero reescrever</button>';
+  document.getElementById('wdepois').innerHTML=h;
+  for(i=0;i<it.chk.length;i++){ var v=reg.chk[i];
+    if(v===1) document.getElementById('y'+i).classList.add('sel-y'); if(v===0) document.getElementById('n'+i).classList.add('sel-n'); }
+  escStatus();
+}
+function escMarca(i,v){
+  var it=G.escItem, reg=S.escrita[it.id]; reg.chk=reg.chk||{}; reg.chk[i]=v; save();
+  document.getElementById('y'+i).classList.toggle('sel-y',v===1);
+  document.getElementById('n'+i).classList.toggle('sel-n',v===0);
+  escStatus();
+}
+function escStatus(){
+  var it=G.escItem, reg=S.escrita[it.id], i, todos=true, algumNao=false;
+  for(i=0;i<it.chk.length;i++){ if(reg.chk[i]===undefined) todos=false; if(reg.chk[i]===0) algumNao=true; }
+  var el=document.getElementById('chkStatus');
+  if(!todos){ el.innerHTML='<div class="warn">Responda Sim ou Ainda não em cada item para continuar.</div>'; nextBtn().style.display='none'; return; }
+  if(!reg.contado){ reg.contado=true; G.total++; }
+  if(algumNao||reg.transcrita){ reg.status='revisar'; el.innerHTML='<div class="warn">🔁 <b>Vale revisar.</b> Conserte o que faltou e clique em "Quero reescrever".</div>'; }
+  else { reg.status='ok'; el.innerHTML='<div class="modelo">✅ <b>Carta aprovada pelo Pipo!</b></div>'; if(!reg.pontuado){ reg.pontuado=true; G.acertos++; } }
+  save(); g_next();
+}
+function escReescrever(){
+  var reg=S.escrita[G.escItem.id]; if(reg&&reg.contado&&!reg.pontuado){ reg.contado=false; G.total--; }
+  if(reg&&reg.pontuado){ reg.pontuado=false; reg.contado=false; G.acertos--; G.total--; }
+  document.getElementById('wchk').disabled=false; document.getElementById('wdepois').innerHTML='';
+  nextBtn().style.display='none'; document.getElementById('wtxt').focus();
+  G.tentativa=1;
+}
+
+/* =========================================================
+   FIM DE ENTREGA
+   ========================================================= */
+function winFase(p,acertos,total){
+  var ant=S.fases[p]||{};
+  S.fases[p]={feita:true, concluido:true, concluidoEm:ant.concluidoEm||new Date().toISOString(),
+              acertos:acertos, total:total, melhor:Math.max(acertos,ant.melhor||0), vezes:(ant.vezes||0)+1};
+  save(); confetti(34);
+  var pc=total?Math.round(acertos*100/total):0;
+  var msg='Você terminou <b>'+TITULOS[p]+'</b> com <b>'+acertos+'</b> de <b>'+total+'</b>.<br>';
+  msg+= pc>=80 ? 'Uhuu! Entrega perfeita! 🏅' : (pc>=50 ? 'Muito bem! Se quiser, refaça esta entrega depois para fixar. 💪' : 'Você chegou até o fim, que é o mais importante! Vale repetir esta entrega mais tarde. 🤗');
+  msg+='<br><br>✉️ Você ganhou um <b>selo</b> lá em cima!';
+  var prox=p;
+  msg+= prox<=5 ? '<br>🔓 Destravou: <b>'+TITULOS[prox+1]+'</b>.' : '<br>🔓 Destravou: <b>📋 Mural do Correio</b>.';
+  document.getElementById('wonMsg').innerHTML=msg;
+  var bt=document.getElementById('wonNext');
+  bt.textContent = prox<=5 ? ('Próxima entrega: '+TITULOS[prox+1]+' ➡️') : 'Ler o Mural do Correio ➡️';
+  bt.onclick=function(){ openStep(prox); };
+  go('scr-won');
+}
+
+/* =========================================================
+   MURAL (cartaz) — concluído ao rolar até o fim + botão
+   ========================================================= */
+function abrirMural(){
+  document.getElementById('muralSemaforos').innerHTML=semaforo('todas',false,90)+' &nbsp; '+semaforo('todas',true,66);
+  document.getElementById('muralPlacas').innerHTML=gradePlacas(['semaforo','virar','estacionar','lombada','onibus','vel50','pedestres'],70);
+  go('scr-mural'); atualizarBotaoMural();
+}
+function checarRolagem(){
+  if(!document.getElementById('scr-mural').classList.contains('on')) return;
+  var doc=document.documentElement, alto=Math.max(doc.scrollHeight,document.body.scrollHeight);
+  var pct=Math.min(100,Math.round(((window.scrollY||doc.scrollTop)+window.innerHeight)*100/alto));
+  if(pct>(S.mural.maxPct||0)){ S.mural.maxPct=pct; if(pct>=90) save(); }
+  atualizarBotaoMural();
+}
+function atualizarBotaoMural(){
+  var b=document.getElementById('btnLiMural'), pr=document.getElementById('btnProntoFinal'), hint=document.getElementById('muralHint');
+  if(S.mural.concluido){ b.disabled=true; b.textContent='✅ Mural lido até o fim'; pr.style.display='block'; hint.textContent='Muito bem! A Grande Entrega está destravada.'; return; }
+  b.disabled=(S.mural.maxPct||0)<90;
+  hint.textContent=b.disabled?'O botão acende quando você rolar até o fim do mural.':'Pode clicar!';
+}
+window.addEventListener('scroll',checarRolagem,{passive:true});
+function concluirMural(){
+  if((S.mural.maxPct||0)<90) return;
+  S.mural.concluido=true; S.mural.concluidoEm=new Date().toISOString(); save(); confetti(30);
+  atualizarBotaoMural();
+}
+
+/* =========================================================
+   GRANDE ENTREGA (desafio final)
+   ========================================================= */
+function startFinal(){
+  if(!aberta(7)){ modal('🔒 Ainda não',fraseTrava(7).replace('🔒 ','')); return; }
+  G={p:'F', idx:0, acertos:0, det:[], ordem:shuffleSeeded(FINAL.map(function(_,i){return i;}),'finalq'+SEMENTE)};
+  document.getElementById('gameTitle').textContent='🏆 Grande Entrega';
+  go('scr-game'); f_render();
+}
+function f_render(){
+  clearFb(); nextBtn().style.display='none';
+  var q=FINAL[G.ordem[G.idx]];
+  setCount('Questão '+(G.idx+1)+' de '+FINAL.length+' · ⭐ '+G.acertos);
+  renderMC(q,'fin'+G.ordem[G.idx]+SEMENTE,function(btn,oi){
+    var ok=markMC(btn,oi,q); if(ok) G.acertos++;
+    G.det.push({q:q.p.replace(/<svg[\s\S]*?<\/svg>/g,' [placa] ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim(),marcou:q.o[oi],certa:q.o[q.c],ok:ok});
+    nextBtn().style.display='block';
+    nextBtn().textContent=(G.idx===FINAL.length-1)?'Ver o resultado 🏆':'Continuar ➡️';
+    nextBtn().onclick=function(){ if(G.idx<FINAL.length-1){ G.idx++; f_render(); window.scrollTo(0,0); } else f_end(); };
+  });
+}
+function f_end(){
+  S.finalScore=G.acertos; S.finalDet=G.det;
+  S.finalCode='SIM-'+(G.acertos<10?'0':'')+G.acertos+'-'+S.codeLetters;
+  S.finalConc=true; if(!S.finalEm) S.finalEm=new Date().toISOString();
+  save(); confetti(60);
+  document.getElementById('fimScore').textContent='Você acertou '+G.acertos+' de '+FINAL.length+'!';
+  var pc=Math.round(G.acertos*100/FINAL.length), m;
+  if(pc>=90) m='Entrega completa! Você está prontíssima(o) para a avaliação. 🥇';
+  else if(pc>=70) m='Muito bom! Dê mais uma lida no Mural do Correio e fica craque. 👏';
+  else if(pc>=50) m='Bom trabalho! Refaça as entregas em que teve dúvida. 💪';
+  else m='Você chegou até o fim, isso é o que vale! Vamos repetir as entregas com um adulto. 🤗';
+  document.getElementById('fimMsg').textContent=m;
+  document.getElementById('fimCode').textContent=S.finalCode;
+  go('scr-fim');
+}
+
+/* =========================================================
+   ÁREA DOS PAIS
+   ========================================================= */
+function codigoValido(){
+  var code=(document.getElementById('paisCode').value||'').trim().toUpperCase();
+  return code==='PAIS-77' || (S.finalCode && code===S.finalCode);
+}
+function abrirRelatorio(){
+  if(!codigoValido()){ modal('🔒 Código não confere','Digite <b>PAIS-77</b> (código fixo da família) ou o código <b>SIM-XX-YY</b> que apareceu no fim da Grande Entrega.'); return; }
+  renderTrilhaPais(); renderRelatorio();
+}
+function renderTrilhaPais(){
+  document.getElementById('paisTrilha').innerHTML = T.liberadoPelosPais
+    ? '<div class="paisbox">🔓 Trilha liberada pelos pais em '+dataBR(T.liberadoEm)+'.<button class="btn ghost small" onclick="trancarDeNovo()">🔒 Trancar de novo</button></div>'
+    : '<button class="btn yellow small" onclick="liberarTrilha()">🔓 Liberar todos os materiais</button><p class="menu-desc" style="margin:0;">Use quando a criança estudou de outro jeito ou trocou de aparelho.</p>';
+}
+function liberarTrilha(){
+  if(!codigoValido()) return;
+  T.liberadoPelosPais=true; T.liberadoEm=new Date().toISOString(); saveT();
+  renderTrilhaPais(); renderRelatorio(); refreshMenu();
+  modal('🔓 Trilha liberada','Todos os materiais estão abertos. No menu aparece o selo "Trilha liberada pelos pais".');
+}
+function trancarDeNovo(){
+  T.liberadoPelosPais=false; T.trancadoEm=new Date().toISOString(); saveT();
+  refreshMenu(); if(document.getElementById('paisReport').innerHTML){ renderTrilhaPais(); renderRelatorio(); }
+}
+function renderRelatorio(){
+  var h='', i;
+  h+='<h3 style="margin-top:14px;">🛤️ Trilha</h3><table class="tbl"><tr><th>Etapa</th><th>Situação</th></tr>';
+  for(i=0;i<ETAPAS.length;i++){
+    h+='<tr><td>'+ETAPAS[i].nome+'</td><td>'+(feita(i)?'✅ concluída em '+dataBR(quandoFeita(i)):'⬜ ainda não')+'</td></tr>';
+  }
+  h+='</table><p style="font-size:.9rem;font-weight:700;">'+(T.liberadoPelosPais?'🔓 Trilha liberada pelos pais em '+dataBR(T.liberadoEm)+'.':'Trilha seguindo a ordem normal (não liberada pelos pais).')+'</p>';
+  h+='<h3>✉️ Entregas</h3><table class="tbl"><tr><th>Entrega</th><th>Última vez</th><th>Melhor</th></tr>';
+  for(i=1;i<=6;i++){ var f=S.fases[i];
+    h+='<tr><td>'+TITULOS[i]+'</td><td>'+(f&&f.concluido?(f.acertos+' de '+f.total):'não fez')+'</td><td>'+(f&&f.concluido?f.melhor:'—')+'</td></tr>'; }
+  h+='</table>';
+  h+='<p style="font-size:.9rem;font-weight:700;">📋 Mural: rolou até '+(S.mural.maxPct||0)+'% da página'+(S.mural.concluido?' e marcou "li até o fim".':'.')+'</p>';
+  h+='<h3>✏️ O que a criança escreveu (Internet com Cuidado)</h3>';
+  var tem=false, lista=JOGO[6];
+  for(i=0;i<lista.length;i++){ var it=lista[i]; if(it.t!=='esc') continue; var reg=S.escrita[it.id]; if(!reg||!reg.resp) continue; tem=true;
+    h+='<div class="wbox'+(reg.transcrita?' red':'')+'"><h4>'+it.tit+'</h4><p style="font-weight:600;font-size:.94rem;">'+esc(reg.resp)+'</p>';
+    if(reg.transcrita) h+='<div class="redflag">🔴 Para revisar: ficou muito parecida com o enunciado (cópia).</div>';
+    var nao=[], j; for(j=0;j<it.chk.length;j++){ if(reg.chk&&reg.chk[j]===0) nao.push(it.chk[j]); }
+    if(nao.length) h+='<div class="warn">Marcou "ainda não" em:<br>• '+nao.join('<br>• ')+'</div>';
+    if(reg.tentou && reg.tentou!==reg.resp) h+='<p style="font-size:.85rem;color:#7C7889;"><b>1ª tentativa (era cópia):</b> '+esc(reg.tentou)+'</p>';
+    h+='<p style="font-size:.85rem;"><b>Modelo:</b> '+it.modelo+'</p></div>'; }
+  if(!tem) h+='<p style="font-weight:700;">Ainda não escreveu nenhuma carta.</p>';
+  h+='<h3>🏆 Grande Entrega</h3>';
+  if(S.finalScore===null||S.finalScore===undefined) h+='<p style="font-weight:700;">Ainda não fez a Grande Entrega.</p>';
+  else{
+    h+='<p style="font-weight:800;">Nota: '+S.finalScore+' de '+FINAL.length+' · Código: <b>'+S.finalCode+'</b></p><table class="tbl"><tr><th>Questão</th><th>Marcou</th><th>Certa</th></tr>';
+    for(i=0;i<S.finalDet.length;i++){ var d=S.finalDet[i]; h+='<tr><td>'+(d.ok?'✅':'❌')+' '+d.q+'</td><td>'+d.marcou+'</td><td><b>'+d.certa+'</b></td></tr>'; }
+    h+='</table>';
+  }
+  h+='<h3>📖 Gabarito comentado da Grande Entrega</h3>';
+  for(i=0;i<FINAL.length;i++){ var q=FINAL[i];
+    h+='<div class="wbox"><div style="font-weight:800;margin:0 0 6px;">'+(i+1)+'. '+q.p+'</div>';
+    for(var k=0;k<q.o.length;k++){
+      if(k===q.c) h+='<div style="background:#E2F4EA;border:2px solid #2FA36B;border-radius:10px;padding:6px 9px;margin:4px 0;font-weight:800;">✅ '+q.o[k]+'</div>';
+      else h+='<div style="background:#F1EFF3;border:2px solid #DAD7DF;border-radius:10px;padding:6px 9px;margin:4px 0;color:#6C6878;font-weight:700;">'+q.o[k]+(q.ex&&q.ex[k]?' — <i>'+q.ex[k]+'</i>':'')+'</div>';
+    }
+    h+='</div>'; }
+  h+='<h3>📚 Pontos de atenção (pegadinhas do conteúdo)</h3><ul style="font-weight:700;font-size:.92rem;">'+
+     '<li>Trem e metrô são terrestres (andam sobre trilhos); helicóptero, drone e balão são aéreos.</li>'+
+     '<li>Carta, bilhete, telefonema e chamada de vídeo são comunicação individual; rede social e site de notícias são de massa.</li>'+
+     '<li>Semáforo dos motoristas: 3 cores (Pare, Atenção!, Siga); dos pedestres: 2 (Espere, Atravesse).</li>'+
+     '<li>A televisão transmite "ao vivo", no mesmo instante em que os fatos acontecem.</li>'+
+     '<li>O comunicado também pede os registros do caderno, que não estão neste kit.</li></ul>';
+  document.getElementById('paisReport').innerHTML=h;
+}
+
+/* =========================================================
+   BACKUP
+   ========================================================= */
+function exportar(){
+  document.getElementById('backupBox').value=JSON.stringify({kit:'correio_pipo_2ano',exportadoEm:new Date().toISOString(),estado:S,trilha:T});
+  modal('📥 Pronto','O código do backup apareceu na caixinha. Copie e guarde (pode mandar por mensagem para outro aparelho).');
+}
+function importar(){
+  var v=document.getElementById('backupBox').value.trim();
+  if(!v){ modal('🤔 Caixinha vazia','Cole o código do backup na caixinha antes de importar.'); return; }
+  modal('📤 Importar','Isso vai <b>substituir</b> o progresso deste aparelho. Continuar?',function(){
+    try{ var o=JSON.parse(v); if(!o||typeof o!=='object') throw 0;
+      if(o.estado){ S=arrumar(o.estado); if(o.trilha){ T=o.trilha; saveT(); } } else S=arrumar(o);
+      save(); refreshMenu(); modal('✅ Importado','O progresso foi restaurado neste aparelho.');
+    }catch(e){ modal('❌ Não deu','Esse código de backup não parece válido. Confira se copiou tudo.'); }
+  },true);
+}
+function zerar(){
+  modal('🗑️ Zerar tudo','Isso apaga <b>todo</b> o progresso deste aparelho (inclusive a trilha) e não dá para desfazer. Continuar?',function(){
+    lsDel(KEY); lsDel(TKEY); S=arrumar(novoEstado()); T={liberadoPelosPais:false,liberadoEm:null};
+    document.getElementById('paisReport').innerHTML=''; document.getElementById('paisTrilha').innerHTML='';
+    document.getElementById('backupBox').value=''; refreshMenu(); go('scr-menu');
+  },true);
+}
+
+/* ---------- arranque ---------- */
+refreshMenu();
+</script>
+</body>
+</html>
